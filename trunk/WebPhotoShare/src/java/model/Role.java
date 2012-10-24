@@ -5,8 +5,10 @@
 package model;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,15 +17,15 @@ import java.util.logging.Logger;
  * @author an
  */
 public class Role {
+
     private int roleId;
     private String roleName;
     private String description;
-
     private Connect conn;
     private PreparedStatement ps;
     private String sql;
     private Statement stmt;
-    
+
     public Role() {
         conn = new Connect();
     }
@@ -58,8 +60,8 @@ public class Role {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    public boolean insert(int roleId,String roleName, String description) {
+
+    public boolean insert(int roleId, String roleName, String description) {
         try {
             sql = "insert into Role(RoleId,RoleName,Description) values(?,?,?)";
             ps = conn.getConn().prepareStatement(sql);
@@ -75,9 +77,109 @@ public class Role {
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        } finally {
+            conn.closeConn();
+        }
+    }
+
+    public boolean update(String roleName, String description, int roleId) {
+        try {
+            sql = "update Role set RoleName=?,Description=? where RoleId=?";
+            ps = conn.getConn().prepareStatement(sql);
+            ps.setString(1, roleName);
+            ps.setString(2, description);
+            ps.setInt(3, roleId);
+            int result = ps.executeUpdate();
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            conn.closeConn();
+        }
+    }
+
+    public boolean delete(int roleId) {
+        try {
+            sql = "delete from Role where RoleId=?";
+            ps = conn.getConn().prepareStatement(sql);
+            ps.setInt(1, roleId);
+            int result = ps.executeUpdate();
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Role.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            conn.closeConn();
         }
     }
     
+        public ArrayList getAll() {
+        try {        
+            stmt = conn.getConn().createStatement();
+            sql = "SELECT * from Role";
+            ResultSet rs = stmt.executeQuery(sql);
+            ArrayList arrLst = new ArrayList();
+            if (rs != null) {
+                while (rs.next()) {
+                    Role r = new Role();
+                    r.setRoleId(rs.getInt("RoleId"));
+                    r.setRoleName(rs.getString("RoleName"));
+                    r.setDescription(rs.getString("Description"));
+                    arrLst.add(r);
+                }
+            }
+            return arrLst;
+        } catch (SQLException ex) {
+            Logger.getLogger(Role.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }finally {
+            conn.closeConn();
+        }
+        
+    }
+
+    public Role getById(int roleId) {
+        try {
+            sql = "SELECT * from Role where RoleId=?";
+            ps = conn.getConn().prepareStatement(sql);
+            ps.setObject(1, roleId);
+            ResultSet rs = ps.executeQuery();
+            ArrayList arrLst = new ArrayList();
+            if (rs != null) {
+                int count = 0;
+                while (rs.next()) {
+                    count++;
+                    Role r = new Role();
+                    r.setRoleId(rs.getInt("RoleId"));
+                    r.setRoleName(rs.getString("RoleName"));
+                    r.setDescription(rs.getString("Description"));
+                    arrLst.add(r);
+                }
+                if (count > 0) {
+                    return (Role) arrLst.get(0);
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Role.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            conn.closeConn();
+        }
+    }
+
     public static void main(String[] args) {
 //        Role r=new Role();
 //        if(r.insert(0,"admin", "sa")) {

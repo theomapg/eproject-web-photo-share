@@ -13,6 +13,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,7 +22,8 @@ import java.util.logging.Logger;
  * @author an
  */
 public class Account {
-private int accountId;
+
+    private int accountId;
     private String userName;
     private String password;
     private int roleId;
@@ -33,9 +35,6 @@ private int accountId;
     private String birthday;
     private String dateCreate;
     private boolean status;
-
-    
-    
     private Connect conn;
     private PreparedStatement ps;
     private String sql;
@@ -45,7 +44,7 @@ private int accountId;
         conn = new Connect();
     }
 
-    public Account(int accountId, String userName, String password, int roleId, String email, boolean gender, String fullName, String address, String birthday, String dateCreate,boolean status) {
+    public Account(int accountId, String userName, String password, int roleId, String email, boolean gender, String fullName, String address, String birthday, String dateCreate, boolean status) {
         this.accountId = accountId;
         this.userName = userName;
         this.password = password;
@@ -56,7 +55,7 @@ private int accountId;
         this.address = address;
         this.birthday = birthday;
         this.dateCreate = dateCreate;
-        this.status=status;
+        this.status = status;
         conn = new Connect();
     }
 
@@ -68,8 +67,6 @@ private int accountId;
         this.status = status;
     }
 
-    
-    
     public int getAccountId() {
         return accountId;
     }
@@ -158,7 +155,7 @@ private int accountId;
         this.roleName = roleName;
     }
 
-    public boolean insert(String userName, String password, int roleId, String email, boolean gender, String fullName, String address, String birthday, String dateCreate,boolean status) {
+    public boolean insert(String userName, String password, int roleId, String email, boolean gender, String fullName, String address, String birthday, String dateCreate, boolean status) {
         try {
             sql = "insert into ACCOUNT(UserName,Password,RoleId,Email,Gender,FullName,Address,Birthday,DateCreate,Status) values(?,?,?,?,?,?,?,?,?,?)";
             ps = conn.getConn().prepareStatement(sql);
@@ -181,10 +178,12 @@ private int accountId;
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        } finally {
+            conn.closeConn();
         }
     }
 
-    public boolean update(int accountId, String email, boolean gender, String fullName, String address, String birthday, String dateCreate,boolean status) {
+    public boolean update(int accountId, String email, boolean gender, String fullName, String address, String birthday, String dateCreate, boolean status) {
         try {
             sql = "update ACCOUNT set Email=?,Gender=?,FullName=?,Address=?,Birthday=?,DateCreate=?,status=? where AccountId=?";
             ps = conn.getConn().prepareStatement(sql);
@@ -196,7 +195,7 @@ private int accountId;
             ps.setString(6, dateCreate);
             ps.setBoolean(7, status);
             ps.setInt(8, accountId);
-            
+
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -206,6 +205,8 @@ private int accountId;
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        } finally {
+            conn.closeConn();
         }
     }
 
@@ -223,6 +224,8 @@ private int accountId;
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        } finally {
+            conn.closeConn();
         }
     }
 
@@ -232,7 +235,7 @@ private int accountId;
             sql = "SELECT ACCOUNT.*, Role.* from ACCOUNT INNER JOIN Role ON ACCOUNT.RoleId = Role.RoleId";
             ResultSet rs = stmt.executeQuery(sql);
             ArrayList arrLst = new ArrayList();
-            if (rs != null) {   
+            if (rs != null) {
                 while (rs.next()) {
                     Account acc = new Account();
                     acc.setAccountId(rs.getInt("AccountId"));
@@ -253,6 +256,49 @@ private int accountId;
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        } finally {
+            conn.closeConn();
+        }
+    }
+
+    public Account getById(int accountId) {
+        try {
+            sql = "SELECT ACCOUNT.*, Role.* from ACCOUNT INNER JOIN Role ON ACCOUNT.RoleId = Role.RoleId where AccountId=?";
+            ps = conn.getConn().prepareStatement(sql);
+            ps.setObject(1, accountId);
+            ResultSet rs = ps.executeQuery();
+            ArrayList arrLst = new ArrayList();
+            if (rs != null) {
+                int count = 0;
+                while (rs.next()) {
+                    count++;
+                    Account acc = new Account();
+                    acc.setAccountId(rs.getInt("AccountId"));
+                    acc.setUserName(rs.getString("UserName"));
+                    acc.setPassword(rs.getString("Password"));
+                    acc.setRoleName(rs.getString("RoleName"));
+                    acc.setEmail(rs.getString("Email"));
+                    acc.setGender(rs.getBoolean("Gender"));
+                    acc.setFullName(rs.getString("FullName"));
+                    acc.setAddress(rs.getString("Address"));
+                    acc.setBirthday(rs.getDate("Birthday").toString());
+                    acc.setDateCreate(rs.getDate("DateCreate").toString());
+                    acc.setStatus(rs.getBoolean("Status"));
+                    arrLst.add(acc);
+                }
+                if (count > 0) {
+                    return (Account) arrLst.get(0);
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            conn.closeConn();
         }
     }
 
@@ -274,19 +320,21 @@ private int accountId;
             } catch (SQLException ex) {
                 Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
+            } finally {
+                conn.closeConn();
             }
         }
     }
 
     public ArrayList search(Hashtable htb) {
-        try {   
+        try {
             sql = "SELECT ACCOUNT.*, Role.* from ACCOUNT INNER JOIN Role ON ACCOUNT.RoleId = Role.RoleId";
             Set set = htb.entrySet();
             Iterator it = set.iterator();
-            
+
             Set setTemp = htb.entrySet();
             Iterator itTemp = setTemp.iterator();
-            ResultSet rs=null;
+            ResultSet rs = null;
             if (htb.size() == 0) {
                 stmt = conn.getConn().createStatement();
                 rs = stmt.executeQuery(sql);
@@ -296,16 +344,16 @@ private int accountId;
                     Map.Entry entry = (Map.Entry) it.next();
                     sql += entry.getKey() + " = ? ";
                 }
-                ps=conn.getConn().prepareStatement(sql);
+                ps = conn.getConn().prepareStatement(sql);
                 System.out.println(sql);
-                int i=0;
+                int i = 0;
                 while (itTemp.hasNext()) {
                     i++;
                     Map.Entry entry = (Map.Entry) itTemp.next();
                     ps.setObject(i, entry.getValue());
                 }
-                rs=ps.executeQuery();
-            }else if (htb.size() > 1) {
+                rs = ps.executeQuery();
+            } else if (htb.size() > 1) {
                 sql += " where ";
                 int count = htb.size();
                 while (it.hasNext()) {
@@ -317,7 +365,7 @@ private int accountId;
                         sql += entry.getKey() + "=? and ";
                     }
                 }
-                ps=conn.getConn().prepareStatement(sql);
+                ps = conn.getConn().prepareStatement(sql);
                 System.out.println(sql);
                 int i = 0;
                 while (itTemp.hasNext()) {
@@ -325,11 +373,11 @@ private int accountId;
                     Map.Entry entry = (Map.Entry) itTemp.next();
                     ps.setObject(i, entry.getValue());
                 }
-                rs=ps.executeQuery();
+                rs = ps.executeQuery();
             }
-            
+
             ArrayList arrLst = new ArrayList();
-            if (rs != null) {   
+            if (rs != null) {
                 while (rs.next()) {
                     Account acc = new Account();
                     acc.setAccountId(rs.getInt("AccountId"));
@@ -350,30 +398,80 @@ private int accountId;
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        } finally {
+            conn.closeConn();
+        }
+    }
+
+    public Account checkLogin(String username, String password) {
+        try {
+            sql = "SELECT ACCOUNT.*, Role.* from ACCOUNT INNER JOIN Role ON ACCOUNT.RoleId = Role.RoleId where UserName=? and Password=?";
+            ps = conn.getConn().prepareStatement(sql);
+            ps.setObject(1, username);
+            ps.setObject(2, password);
+            ResultSet rs = ps.executeQuery();
+            ArrayList arrLst = new ArrayList();
+            if (rs != null) {
+                int count = 0;
+                while (rs.next()) {
+                    count++;
+                    Account acc = new Account();
+                    acc.setAccountId(rs.getInt("AccountId"));
+                    acc.setUserName(rs.getString("UserName"));
+                    acc.setPassword(rs.getString("Password"));
+                    acc.setRoleName(rs.getString("RoleName"));
+                    acc.setEmail(rs.getString("Email"));
+                    acc.setGender(rs.getBoolean("Gender"));
+                    acc.setFullName(rs.getString("FullName"));
+                    acc.setAddress(rs.getString("Address"));
+                    acc.setBirthday(rs.getDate("Birthday").toString());
+                    acc.setDateCreate(rs.getDate("DateCreate").toString());
+                    acc.setStatus(rs.getBoolean("Status"));
+                    arrLst.add(acc);
+                }
+                if (count > 0) {
+                    return (Account) arrLst.get(0);
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            conn.closeConn();
         }
     }
 
     public static void main(String[] args) {
+//       ---------------------------------------------------------
+//       Account acc = new Account();
+//       boolean b = acc.insert("vuvietan", "123456", 0, "vuvietan1990@gmail.com", true, "vũ việt an", "hn","06/25/1990","06/25/1990",false);
+//       boolean b=acc.delete(1);
+//        if(b) {
+//           System.out.println("ok");
+//       }else{
+//           System.out.println("fail");
+//       }
+//       ---------------------------------------------------------
 //        Hashtable table = new Hashtable();
 //        table.put("UserName", "vuvietan");
-//        table.put("Password", "123456");
+//        table.put("Password", "123456");       
 //        //table.put("key2", "value1");
-        
-//        Account acc = new Account();
-//       //boolean b = acc.insert("vuvietan", "123456", 0, "vuvietan1990@gmail.com", true, "vũ việt an", "hn","06/25/1990","06/25/1990" );
-////       boolean b=acc.delete(1);
-////        if(b) {
-////           System.out.println("ok");
-////       }else{
-////           System.out.println("fail");
-////       }
-        
 //        System.out.println(acc.search(table).size());
 //        if(acc.getAll()==null) {
 //            System.out.println("no item");
 //        }else{
 //            System.out.println(acc.getAll().size());
 //        }
-        
+//        ---------------------------------------------------------
+//        Account a=acc.checkLogin("vuvietan", "123456");
+//        if(a!=null){
+//            System.out.println("ok");
+//        }else{
+//            System.out.println("fail");
+//        }
     }
 }
