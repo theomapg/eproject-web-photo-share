@@ -21,8 +21,7 @@ import java.util.logging.Logger;
  * @author an
  */
 public class Account {
-
-    private int accountId;
+private int accountId;
     private String userName;
     private String password;
     private int roleId;
@@ -33,6 +32,10 @@ public class Account {
     private String address;
     private String birthday;
     private String dateCreate;
+    private boolean status;
+
+    
+    
     private Connect conn;
     private PreparedStatement ps;
     private String sql;
@@ -42,7 +45,7 @@ public class Account {
         conn = new Connect();
     }
 
-    public Account(int accountId, String userName, String password, int roleId, String email, boolean gender, String fullName, String address, String birthday, String dateCreate) {
+    public Account(int accountId, String userName, String password, int roleId, String email, boolean gender, String fullName, String address, String birthday, String dateCreate,boolean status) {
         this.accountId = accountId;
         this.userName = userName;
         this.password = password;
@@ -53,9 +56,20 @@ public class Account {
         this.address = address;
         this.birthday = birthday;
         this.dateCreate = dateCreate;
+        this.status=status;
         conn = new Connect();
     }
 
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    
+    
     public int getAccountId() {
         return accountId;
     }
@@ -144,9 +158,9 @@ public class Account {
         this.roleName = roleName;
     }
 
-    public boolean insert(String userName, String password, int roleId, String email, boolean gender, String fullName, String address, String birthday, String dateCreate) {
+    public boolean insert(String userName, String password, int roleId, String email, boolean gender, String fullName, String address, String birthday, String dateCreate,boolean status) {
         try {
-            sql = "insert into ACCOUNT(UserName,Password,RoleId,Email,Gender,FullName,Address,Birthday,DateCreate) values(?,?,?,?,?,?,?,?,?)";
+            sql = "insert into ACCOUNT(UserName,Password,RoleId,Email,Gender,FullName,Address,Birthday,DateCreate,Status) values(?,?,?,?,?,?,?,?,?,?)";
             ps = conn.getConn().prepareStatement(sql);
             ps.setString(1, userName);
             ps.setString(2, password);
@@ -157,6 +171,7 @@ public class Account {
             ps.setString(7, address);
             ps.setString(8, birthday);
             ps.setString(9, dateCreate);
+            ps.setBoolean(10, status);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -169,9 +184,9 @@ public class Account {
         }
     }
 
-    public boolean update(int accountId, String email, boolean gender, String fullName, String address, String birthday, String dateCreate) {
+    public boolean update(int accountId, String email, boolean gender, String fullName, String address, String birthday, String dateCreate,boolean status) {
         try {
-            sql = "update ACCOUNT set Email=?,Gender=?,FullName=?,Address=?,Birthday=?,DateCreate=? where AccountId=?";
+            sql = "update ACCOUNT set Email=?,Gender=?,FullName=?,Address=?,Birthday=?,DateCreate=?,status=? where AccountId=?";
             ps = conn.getConn().prepareStatement(sql);
             ps.setString(1, email);
             ps.setBoolean(2, gender);
@@ -179,7 +194,9 @@ public class Account {
             ps.setString(4, address);
             ps.setString(5, birthday);
             ps.setString(6, dateCreate);
-            ps.setInt(7, accountId);
+            ps.setBoolean(7, status);
+            ps.setInt(8, accountId);
+            
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -228,6 +245,7 @@ public class Account {
                     acc.setAddress(rs.getString("Address"));
                     acc.setBirthday(rs.getDate("Birthday").toString());
                     acc.setDateCreate(rs.getDate("DateCreate").toString());
+                    acc.setStatus(rs.getBoolean("Status"));
                     arrLst.add(acc);
                 }
             }
@@ -324,6 +342,7 @@ public class Account {
                     acc.setAddress(rs.getString("Address"));
                     acc.setBirthday(rs.getDate("Birthday").toString());
                     acc.setDateCreate(rs.getDate("DateCreate").toString());
+                    acc.setStatus(rs.getBoolean("Status"));
                     arrLst.add(acc);
                 }
             }
