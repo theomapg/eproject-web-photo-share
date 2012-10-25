@@ -20,41 +20,47 @@ import java.util.logging.Logger;
  *
  * @author an
  */
-public class Role {
+public class Albums {
 
-    private int roleId;
-    private String roleName;
-    private String description;
     private Connect conn;
     private PreparedStatement ps;
     private String sql;
     private Statement stmt;
+    private int albumsId;
+    private String albumsName;
+    private String description;
+    private String dateCreate;
+    private int cateId;
+    private int accountId;
 
-    public Role() {
+    public Albums() {
         conn = new Connect();
     }
 
-    public Role(int roleId, String roleName, String description) {
-        this.roleId = roleId;
-        this.roleName = roleName;
+    public Albums(int albumsId, String albumsName, String description, String dateCreate, int cateId, int accountId) {
+        this.albumsId = albumsId;
+        this.albumsName = albumsName;
         this.description = description;
+        this.dateCreate = dateCreate;
+        this.cateId = cateId;
+        this.accountId = accountId;
         conn = new Connect();
     }
 
-    public int getRoleId() {
-        return roleId;
+    public int getAlbumsId() {
+        return albumsId;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setAlbumsId(int albumsId) {
+        this.albumsId = albumsId;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getAlbumsName() {
+        return albumsName;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setAlbumsName(String albumsName) {
+        this.albumsName = albumsName;
     }
 
     public String getDescription() {
@@ -65,13 +71,39 @@ public class Role {
         this.description = description;
     }
 
-    public boolean insert(int roleId, String roleName, String description) {
+    public String getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(String dateCreate) {
+        this.dateCreate = dateCreate;
+    }
+
+    public int getCateId() {
+        return cateId;
+    }
+
+    public void setCateId(int cateId) {
+        this.cateId = cateId;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public boolean insert(String albumsName, String description, String dateCreate, int cateId, int accountId) {
         try {
-            sql = "insert into Role(RoleId,RoleName,Description) values(?,?,?)";
+            sql = "INSERT INTO ALBUMS (AlbumsName, Description, DateCreate, CateId, AccountId) VALUES(?,?,?,?,?)";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setInt(1, roleId);
-            ps.setString(2, roleName);
-            ps.setString(3, description);
+            ps.setObject(1, albumsName);
+            ps.setObject(2, description);
+            ps.setObject(3, dateCreate);
+            ps.setObject(4, cateId);
+            ps.setObject(5, accountId);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -79,20 +111,23 @@ public class Role {
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Albums.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             conn.closeConn();
         }
     }
 
-    public boolean update(String roleName, String description, int roleId) {
+    public boolean update(int albumsId, String albumsName, String description, String dateCreate, int cateId, int accountId) {
         try {
-            sql = "update Role set RoleName=?,Description=? where RoleId=?";
+            sql = "UPDATE  ALBUMS SET AlbumsName =?, Description =?, DateCreate =?, CateId =?, AccountId =? where AlbumsId=?";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setString(1, roleName);
-            ps.setString(2, description);
-            ps.setInt(3, roleId);
+            ps.setObject(1, albumsName);
+            ps.setObject(2, description);
+            ps.setObject(3, dateCreate);
+            ps.setObject(4, cateId);
+            ps.setObject(5, accountId);
+            ps.setObject(6, albumsId);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -100,18 +135,18 @@ public class Role {
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Albums.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             conn.closeConn();
         }
     }
 
-    public boolean delete(int roleId) {
+    public boolean delete(int albumsId) {
         try {
-            sql = "delete from Role where RoleId=?";
+            sql = "DELETE FROM ALBUMS where AlbumsId=?";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setInt(1, roleId);
+            ps.setObject(1, albumsId);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -119,7 +154,7 @@ public class Role {
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Role.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Albums.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             conn.closeConn();
@@ -129,18 +164,21 @@ public class Role {
     public ArrayList getAll() {
         try {
             stmt = conn.getConn().createStatement();
-            sql = "SELECT * from Role";
+            sql = "SELECT * FROM ALBUMS";
             ResultSet rs = stmt.executeQuery(sql);
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
                 int count = 0;
                 while (rs.next()) {
                     count++;
-                    Role r = new Role();
-                    r.setRoleId(rs.getInt("RoleId"));
-                    r.setRoleName(rs.getString("RoleName"));
-                    r.setDescription(rs.getString("Description"));
-                    arrLst.add(r);
+                    Albums al = new Albums();
+                    al.setAlbumsId(rs.getInt("AlbumsId"));
+                    al.setAlbumsName(rs.getString("AlbumsName"));
+                    al.setDescription(rs.getString("Description"));
+                    al.setDateCreate(rs.getDate("DateCreate").toString());
+                    al.setCateId(rs.getInt("CateId"));
+                    al.setAccountId(rs.getInt("AccountId"));
+                    arrLst.add(al);
                 }
                 if (count > 0) {
                     return arrLst;
@@ -151,33 +189,35 @@ public class Role {
                 return null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Role.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Albums.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             conn.closeConn();
         }
-
     }
-
-    public Role getById(int roleId) {
+    
+    public Albums getById(int albumsId) {
         try {
-            sql = "SELECT * from Role where RoleId=?";
+            sql = "SELECT * from ALBUMS where AlbumsId=?";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setObject(1, roleId);
+            ps.setObject(1, albumsId);
             ResultSet rs = ps.executeQuery();
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
                 int count = 0;
                 while (rs.next()) {
                     count++;
-                    Role r = new Role();
-                    r.setRoleId(rs.getInt("RoleId"));
-                    r.setRoleName(rs.getString("RoleName"));
-                    r.setDescription(rs.getString("Description"));
-                    arrLst.add(r);
+                    Albums al = new Albums();
+                    al.setAlbumsId(rs.getInt("AlbumsId"));
+                    al.setAlbumsName(rs.getString("AlbumsName"));
+                    al.setDescription(rs.getString("Description"));
+                    al.setDateCreate(rs.getDate("DateCreate").toString());
+                    al.setCateId(rs.getInt("CateId"));
+                    al.setAccountId(rs.getInt("AccountId"));
+                    arrLst.add(al);
                 }
                 if (count > 0) {
-                    return (Role) arrLst.get(0);
+                    return (Albums)arrLst.get(0);
                 } else {
                     return null;
                 }
@@ -185,16 +225,16 @@ public class Role {
                 return null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Role.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Albums.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             conn.closeConn();
         }
     }
-
+    
     public ArrayList search(Hashtable htb) {
         try {
-            sql = "SELECT * from Role";
+            sql = "SELECT * from ALBUMS";
             Set set = htb.entrySet();
             Iterator it = set.iterator();
 
@@ -247,11 +287,14 @@ public class Role {
                 int count = 0;
                 while (rs.next()) {
                     count++;
-                    Role r = new Role();
-                    r.setRoleId(rs.getInt("RoleId"));
-                    r.setRoleName(rs.getString("RoleName"));
-                    r.setDescription(rs.getString("Description"));
-                    arrLst.add(r);
+                    Albums al = new Albums();
+                    al.setAlbumsId(rs.getInt("AlbumsId"));
+                    al.setAlbumsName(rs.getString("AlbumsName"));
+                    al.setDescription(rs.getString("Description"));
+                    al.setDateCreate(rs.getDate("DateCreate").toString());
+                    al.setCateId(rs.getInt("CateId"));
+                    al.setAccountId(rs.getInt("AccountId"));
+                    arrLst.add(al);
                 }
                 if (count > 0) {
                     return arrLst;
@@ -262,19 +305,10 @@ public class Role {
                 return null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Role.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Albums.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             conn.closeConn();
         }
-    }
-
-    public static void main(String[] args) {
-//        Role r=new Role();
-//        if(r.insert(0,"admin", "sa")) {
-//            System.out.println("ok");
-//        }else{
-//            System.out.println("fail");
-//        }
     }
 }

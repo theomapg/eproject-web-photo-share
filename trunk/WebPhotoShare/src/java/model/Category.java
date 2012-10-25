@@ -20,58 +20,46 @@ import java.util.logging.Logger;
  *
  * @author an
  */
-public class Role {
+public class Category {
 
-    private int roleId;
-    private String roleName;
-    private String description;
+    private int cateId;
+    private String cateName;
     private Connect conn;
     private PreparedStatement ps;
     private String sql;
     private Statement stmt;
 
-    public Role() {
+    public Category() {
         conn = new Connect();
     }
 
-    public Role(int roleId, String roleName, String description) {
-        this.roleId = roleId;
-        this.roleName = roleName;
-        this.description = description;
+    public Category(int cateId, String cateName) {
+        this.cateId = cateId;
+        this.cateName = cateName;
         conn = new Connect();
     }
 
-    public int getRoleId() {
-        return roleId;
+    public int getCateId() {
+        return cateId;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setCateId(int cateId) {
+        this.cateId = cateId;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getCateName() {
+        return cateName;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setCateName(String cateName) {
+        this.cateName = cateName;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean insert(int roleId, String roleName, String description) {
+    public boolean insert(String cateName) {
         try {
-            sql = "insert into Role(RoleId,RoleName,Description) values(?,?,?)";
+            sql = "INSERT INTO Category(CateName)  VALUES(?)";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setInt(1, roleId);
-            ps.setString(2, roleName);
-            ps.setString(3, description);
+            ps.setObject(1, cateName);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -79,20 +67,19 @@ public class Role {
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             conn.closeConn();
         }
     }
 
-    public boolean update(String roleName, String description, int roleId) {
+    public boolean update(int cateId, String cateName) {
         try {
-            sql = "update Role set RoleName=?,Description=? where RoleId=?";
+            sql = "UPDATE Category  SET  CateName =? where CateId=?";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setString(1, roleName);
-            ps.setString(2, description);
-            ps.setInt(3, roleId);
+            ps.setObject(1, cateName);
+            ps.setObject(2, cateId);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -100,18 +87,18 @@ public class Role {
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             conn.closeConn();
         }
     }
 
-    public boolean delete(int roleId) {
+    public boolean delete(int cateId) {
         try {
-            sql = "delete from Role where RoleId=?";
+            sql = "DELETE FROM Category where CateId=?";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setInt(1, roleId);
+            ps.setObject(1, cateId);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -119,7 +106,7 @@ public class Role {
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Role.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             conn.closeConn();
@@ -129,18 +116,17 @@ public class Role {
     public ArrayList getAll() {
         try {
             stmt = conn.getConn().createStatement();
-            sql = "SELECT * from Role";
+            sql = "SELECT * FROM Category";
             ResultSet rs = stmt.executeQuery(sql);
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
                 int count = 0;
                 while (rs.next()) {
                     count++;
-                    Role r = new Role();
-                    r.setRoleId(rs.getInt("RoleId"));
-                    r.setRoleName(rs.getString("RoleName"));
-                    r.setDescription(rs.getString("Description"));
-                    arrLst.add(r);
+                    Category c = new Category();
+                    c.setCateId(rs.getInt("CateId"));
+                    c.setCateName(rs.getString("CateName"));
+                    arrLst.add(c);
                 }
                 if (count > 0) {
                     return arrLst;
@@ -151,33 +137,31 @@ public class Role {
                 return null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Role.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             conn.closeConn();
         }
-
     }
 
-    public Role getById(int roleId) {
+    public Category getById(int cateId) {
         try {
-            sql = "SELECT * from Role where RoleId=?";
+            sql = "SELECT * from Category where CateId=?";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setObject(1, roleId);
+            ps.setObject(1, cateId);
             ResultSet rs = ps.executeQuery();
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
                 int count = 0;
                 while (rs.next()) {
                     count++;
-                    Role r = new Role();
-                    r.setRoleId(rs.getInt("RoleId"));
-                    r.setRoleName(rs.getString("RoleName"));
-                    r.setDescription(rs.getString("Description"));
-                    arrLst.add(r);
+                    Category c = new Category();
+                    c.setCateId(rs.getInt("CateId"));
+                    c.setCateName(rs.getString("CateName"));
+                    arrLst.add(c);
                 }
                 if (count > 0) {
-                    return (Role) arrLst.get(0);
+                    return (Category) arrLst.get(0);
                 } else {
                     return null;
                 }
@@ -185,7 +169,7 @@ public class Role {
                 return null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Role.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             conn.closeConn();
@@ -194,7 +178,7 @@ public class Role {
 
     public ArrayList search(Hashtable htb) {
         try {
-            sql = "SELECT * from Role";
+            sql = "SELECT * from Category";
             Set set = htb.entrySet();
             Iterator it = set.iterator();
 
@@ -247,11 +231,10 @@ public class Role {
                 int count = 0;
                 while (rs.next()) {
                     count++;
-                    Role r = new Role();
-                    r.setRoleId(rs.getInt("RoleId"));
-                    r.setRoleName(rs.getString("RoleName"));
-                    r.setDescription(rs.getString("Description"));
-                    arrLst.add(r);
+                    Category c = new Category();
+                    c.setCateId(rs.getInt("CateId"));
+                    c.setCateName(rs.getString("CateName"));
+                    arrLst.add(c);
                 }
                 if (count > 0) {
                     return arrLst;
@@ -262,19 +245,10 @@ public class Role {
                 return null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Role.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             conn.closeConn();
         }
-    }
-
-    public static void main(String[] args) {
-//        Role r=new Role();
-//        if(r.insert(0,"admin", "sa")) {
-//            System.out.println("ok");
-//        }else{
-//            System.out.println("fail");
-//        }
     }
 }

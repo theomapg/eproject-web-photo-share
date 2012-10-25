@@ -236,7 +236,9 @@ public class Account {
             ResultSet rs = stmt.executeQuery(sql);
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
+                int count = 0;
                 while (rs.next()) {
+                    count++;
                     Account acc = new Account();
                     acc.setAccountId(rs.getInt("AccountId"));
                     acc.setUserName(rs.getString("UserName"));
@@ -251,8 +253,14 @@ public class Account {
                     acc.setStatus(rs.getBoolean("Status"));
                     arrLst.add(acc);
                 }
+                if (count > 0) {
+                    return arrLst;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
             }
-            return arrLst;
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -378,7 +386,9 @@ public class Account {
 
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
+                int count = 0;
                 while (rs.next()) {
+                    count++;
                     Account acc = new Account();
                     acc.setAccountId(rs.getInt("AccountId"));
                     acc.setUserName(rs.getString("UserName"));
@@ -393,8 +403,14 @@ public class Account {
                     acc.setStatus(rs.getBoolean("Status"));
                     arrLst.add(acc);
                 }
+                if (count > 0) {
+                    return arrLst;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
             }
-            return arrLst;
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -470,6 +486,7 @@ public class Account {
 //        Account a=acc.checkLogin("vuvietan", "123456");
 //        if(a!=null){
 //            System.out.println("ok");
+//            System.out.println(a.getDateCreate());
 //        }else{
 //            System.out.println("fail");
 //        }
