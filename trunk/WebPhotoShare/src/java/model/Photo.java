@@ -20,55 +20,64 @@ import java.util.logging.Logger;
  *
  * @author an
  */
-public class Feedback {
-    private int feedbackId;
-    private String title;
-    private int accountId;
+public class Photo {
+    private int photoId;
+    private String image;
+    private boolean status;
+    private int albumsId;
     private String description;
-    private String dateCreate;
-    private int titleId;
+    private String uploadDate;
 
     private Connect conn;
     private PreparedStatement ps;
     private String sql;
     private Statement stmt;
+
     
-    public Feedback() {
+    public Photo() {
         conn = new Connect();
     }
 
-    public Feedback(int feedbackId, String title, int accountId, String description, String dateCreate, int titleId) {
-        this.feedbackId = feedbackId;
-        this.title = title;
-        this.accountId = accountId;
+    public Photo(int photoId, String image, boolean status, int albumsId, String description, String uploadDate) {
+        this.photoId = photoId;
+        this.image = image;
+        this.status = status;
+        this.albumsId = albumsId;
         this.description = description;
-        this.dateCreate = dateCreate;
-        this.titleId = titleId;
+        this.uploadDate = uploadDate;
         conn = new Connect();
     }
-
-    public int getFeedbackId() {
-        return feedbackId;
+    
+    public int getPhotoId() {
+        return photoId;
     }
 
-    public void setFeedbackId(int feedbackId) {
-        this.feedbackId = feedbackId;
+    public void setPhotoId(int photoId) {
+        this.photoId = photoId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getImage() {
+        return image;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public int getAccountId() {
-        return accountId;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public int getAlbumsId() {
+        return albumsId;
+    }
+
+    public void setAlbumsId(int albumsId) {
+        this.albumsId = albumsId;
     }
 
     public String getDescription() {
@@ -79,31 +88,23 @@ public class Feedback {
         this.description = description;
     }
 
-    public String getDateCreate() {
-        return dateCreate;
+    public String getUploadDate() {
+        return uploadDate;
     }
 
-    public void setDateCreate(String dateCreate) {
-        this.dateCreate = dateCreate;
+    public void setUploadDate(String uploadDate) {
+        this.uploadDate = uploadDate;
     }
 
-    public int getTitleId() {
-        return titleId;
-    }
-
-    public void setTitleId(int titleId) {
-        this.titleId = titleId;
-    }
-    
-    public boolean insert(String title, int accountId, String description, String dateCreate, int titleId) {
+    public boolean insert(String image, boolean status, int albumsId, String description, String uploadDate) {
         try {
-            sql = "INSERT INTO FEEDBACK (Title, AccountId, Description, DateCreate, TitleId) VALUES(?,?,?,?,?)";
+            sql = "INSERT INTO PHOTO(Image, Status, AlbumsId, Description, UploadDate) VALUES(?,?,?,?,?)";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setObject(1, title);
-            ps.setObject(2, accountId);
-            ps.setObject(3, description);
-            ps.setObject(4, dateCreate);
-            ps.setObject(5, titleId);
+            ps.setObject(1, image);
+            ps.setObject(2, status);
+            ps.setObject(3, albumsId);
+            ps.setObject(4, description);
+            ps.setObject(5, uploadDate);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -111,23 +112,23 @@ public class Feedback {
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Feedback.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Photo.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             conn.closeConn();
         }
     }
 
-    public boolean update(int feedbackId, String title, int accountId, String description, String dateCreate, int titleId) {
+    public boolean update(int photoId, String image, boolean status, int albumsId, String description, String uploadDate) {
         try {
-            sql = "UPDATE  FEEDBACK SET Title =?, AccountId =?, Description =?, DateCreate =?, TitleId =? where FeedbackId=?";
+            sql = "UPDATE PHOTO SET Image =?, Status =?, AlbumsId =?, Description =?, UploadDate =? where PhotoId=?";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setObject(1, title);
-            ps.setObject(2, accountId);
-            ps.setObject(3, description);
-            ps.setObject(4, dateCreate);
-            ps.setObject(5, titleId);
-            ps.setObject(6, feedbackId);
+            ps.setObject(1, image);
+            ps.setObject(2, status);
+            ps.setObject(3, albumsId);
+            ps.setObject(4, description);
+            ps.setObject(5, uploadDate);
+            ps.setObject(6, photoId);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -135,18 +136,18 @@ public class Feedback {
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Feedback.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Photo.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             conn.closeConn();
         }
     }
 
-    public boolean delete(int feedbackId) {
+    public boolean delete(int photoId) {
         try {
-            sql = "delete from FEEDBACK where FeedbackId=?";
+            sql = "delete from PHOTO where PhotoId=?";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setInt(1, feedbackId);
+            ps.setInt(1, photoId);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -154,7 +155,7 @@ public class Feedback {
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Feedback.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Photo.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             conn.closeConn();
@@ -164,21 +165,21 @@ public class Feedback {
     public ArrayList getAll() {
         try {
             stmt = conn.getConn().createStatement();
-            sql = "SELECT * from FEEDBACK";
+            sql = "SELECT * from Role";
             ResultSet rs = stmt.executeQuery(sql);
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
                 int count = 0;
                 while (rs.next()) {
                     count++;
-                    Feedback f = new Feedback();
-                    f.setFeedbackId(rs.getInt("FeedbackId"));
-                    f.setTitle(rs.getString("Title"));
-                    f.setAccountId(rs.getInt("AccountId"));
-                    f.setDescription(rs.getString("Description"));
-                    f.setDateCreate(rs.getDate("DateCreate").toString());
-                    f.setTitleId(rs.getInt("TitleId"));
-                    arrLst.add(f);
+                    Photo p = new Photo();
+                    p.setPhotoId(rs.getInt("PhotoId"));
+                    p.setImage(rs.getString("Image"));
+                    p.setStatus(rs.getBoolean("Status"));
+                    p.setAlbumsId(rs.getInt("AlbumsId"));
+                    p.setDescription(rs.getString("Description"));
+                    p.setUploadDate(rs.getDate("UploadDate").toString());
+                    arrLst.add(p);
                 }
                 if (count > 0) {
                     return arrLst;
@@ -189,7 +190,7 @@ public class Feedback {
                 return null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Feedback.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Photo.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             conn.closeConn();
@@ -197,28 +198,28 @@ public class Feedback {
 
     }
 
-    public Feedback getById(int feedbackId) {
+    public Photo getById(int roleId) {
         try {
-            sql = "SELECT * from FEEDBACK where FeedbackId=?";
+            sql = "SELECT * from Role where RoleId=?";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setObject(1, feedbackId);
+            ps.setObject(1, roleId);
             ResultSet rs = ps.executeQuery();
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
                 int count = 0;
                 while (rs.next()) {
                     count++;
-                    Feedback f = new Feedback();
-                    f.setFeedbackId(rs.getInt("FeedbackId"));
-                    f.setTitle(rs.getString("Title"));
-                    f.setAccountId(rs.getInt("AccountId"));
-                    f.setDescription(rs.getString("Description"));
-                    f.setDateCreate(rs.getDate("DateCreate").toString());
-                    f.setTitleId(rs.getInt("TitleId"));
-                    arrLst.add(f);
+                    Photo p = new Photo();
+                    p.setPhotoId(rs.getInt("PhotoId"));
+                    p.setImage(rs.getString("Image"));
+                    p.setStatus(rs.getBoolean("Status"));
+                    p.setAlbumsId(rs.getInt("AlbumsId"));
+                    p.setDescription(rs.getString("Description"));
+                    p.setUploadDate(rs.getDate("UploadDate").toString());
+                    arrLst.add(p);
                 }
                 if (count > 0) {
-                    return (Feedback) arrLst.get(0);
+                    return (Photo) arrLst.get(0);
                 } else {
                     return null;
                 }
@@ -226,7 +227,7 @@ public class Feedback {
                 return null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Feedback.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Photo.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             conn.closeConn();
@@ -235,7 +236,7 @@ public class Feedback {
 
     public ArrayList search(Hashtable htb) {
         try {
-            sql = "SELECT * from FEEDBACK";
+            sql = "SELECT * from Role";
             Set set = htb.entrySet();
             Iterator it = set.iterator();
 
@@ -288,14 +289,14 @@ public class Feedback {
                 int count = 0;
                 while (rs.next()) {
                     count++;
-                    Feedback f = new Feedback();
-                    f.setFeedbackId(rs.getInt("FeedbackId"));
-                    f.setTitle(rs.getString("Title"));
-                    f.setAccountId(rs.getInt("AccountId"));
-                    f.setDescription(rs.getString("Description"));
-                    f.setDateCreate(rs.getDate("DateCreate").toString());
-                    f.setTitleId(rs.getInt("TitleId"));
-                    arrLst.add(f);
+                    Photo p = new Photo();
+                    p.setPhotoId(rs.getInt("PhotoId"));
+                    p.setImage(rs.getString("Image"));
+                    p.setStatus(rs.getBoolean("Status"));
+                    p.setAlbumsId(rs.getInt("AlbumsId"));
+                    p.setDescription(rs.getString("Description"));
+                    p.setUploadDate(rs.getDate("UploadDate").toString());
+                    arrLst.add(p);
                 }
                 if (count > 0) {
                     return arrLst;
@@ -306,13 +307,11 @@ public class Feedback {
                 return null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Feedback.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Photo.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             conn.closeConn();
         }
     }
-    
-    
-    
+
 }
