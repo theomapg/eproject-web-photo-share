@@ -22,11 +22,11 @@ import java.util.logging.Logger;
  */
 public class Feedback {
     private int feedbackId;
-    private String title;
+    private String questionF;
     private int accountId;
-    private String description;
+    private String answerF;
     private String dateCreate;
-    private int titleId;
+    private boolean status;
 
     private Connect conn;
     private PreparedStatement ps;
@@ -37,13 +37,13 @@ public class Feedback {
         conn = new Connect();
     }
 
-    public Feedback(int feedbackId, String title, int accountId, String description, String dateCreate, int titleId) {
+    public Feedback(int feedbackId, String questionF, int accountId, String answerF, String dateCreate, boolean status) {
         this.feedbackId = feedbackId;
-        this.title = title;
+        this.questionF = questionF;
         this.accountId = accountId;
-        this.description = description;
+        this.answerF = answerF;
         this.dateCreate = dateCreate;
-        this.titleId = titleId;
+        this.status = status;
         conn = new Connect();
     }
 
@@ -55,12 +55,12 @@ public class Feedback {
         this.feedbackId = feedbackId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getQuestionF() {
+        return questionF;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setQuestionF(String questionF) {
+        this.questionF = questionF;
     }
 
     public int getAccountId() {
@@ -71,12 +71,12 @@ public class Feedback {
         this.accountId = accountId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAnswerF() {
+        return answerF;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAnswerF(String answerF) {
+        this.answerF = answerF;
     }
 
     public String getDateCreate() {
@@ -87,23 +87,25 @@ public class Feedback {
         this.dateCreate = dateCreate;
     }
 
-    public int getTitleId() {
-        return titleId;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setTitleId(int titleId) {
-        this.titleId = titleId;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
+
+   
     
-    public boolean insert(String title, int accountId, String description, String dateCreate, int titleId) {
+    public boolean insert(String questionF, int accountId, String answerF, String dateCreate, boolean status) {
         try {
-            sql = "INSERT INTO FEEDBACK (Title, AccountId, Description, DateCreate, TitleId) VALUES(?,?,?,?,?)";
+            sql = "INSERT INTO FEEDBACK (QuestionF, AccountId, AnswerF, DateCreate, Status) VALUES(?,?,?,?,?)";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setObject(1, title);
+            ps.setObject(1, questionF);
             ps.setObject(2, accountId);
-            ps.setObject(3, description);
+            ps.setObject(3, answerF);
             ps.setObject(4, dateCreate);
-            ps.setObject(5, titleId);
+            ps.setObject(5, status);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -118,15 +120,15 @@ public class Feedback {
         }
     }
 
-    public boolean update(int feedbackId, String title, int accountId, String description, String dateCreate, int titleId) {
+    public boolean update(int feedbackId, String questionF, int accountId, String answerF, String dateCreate, boolean status) {
         try {
-            sql = "UPDATE  FEEDBACK SET Title =?, AccountId =?, Description =?, DateCreate =?, TitleId =? where FeedbackId=?";
+            sql = "UPDATE  FEEDBACK SET QuestionF =?, AccountId =?, AnswerF =?, DateCreate =?, Status =? where FeedbackId=?";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setObject(1, title);
+            ps.setObject(1, questionF);
             ps.setObject(2, accountId);
-            ps.setObject(3, description);
+            ps.setObject(3, answerF);
             ps.setObject(4, dateCreate);
-            ps.setObject(5, titleId);
+            ps.setObject(5, status);
             ps.setObject(6, feedbackId);
             int result = ps.executeUpdate();
             if (result > 0) {
@@ -173,11 +175,11 @@ public class Feedback {
                     count++;
                     Feedback f = new Feedback();
                     f.setFeedbackId(rs.getInt("FeedbackId"));
-                    f.setTitle(rs.getString("Title"));
+                    f.setQuestionF(rs.getString("QuestionF"));
                     f.setAccountId(rs.getInt("AccountId"));
-                    f.setDescription(rs.getString("Description"));
+                    f.setAnswerF(rs.getString("AnswerF"));
                     f.setDateCreate(rs.getDate("DateCreate").toString());
-                    f.setTitleId(rs.getInt("TitleId"));
+                    f.setStatus(rs.getBoolean("Status"));
                     arrLst.add(f);
                 }
                 if (count > 0) {
@@ -210,11 +212,11 @@ public class Feedback {
                     count++;
                     Feedback f = new Feedback();
                     f.setFeedbackId(rs.getInt("FeedbackId"));
-                    f.setTitle(rs.getString("Title"));
+                    f.setQuestionF(rs.getString("QuestionF"));
                     f.setAccountId(rs.getInt("AccountId"));
-                    f.setDescription(rs.getString("Description"));
+                    f.setAnswerF(rs.getString("AnswerF"));
                     f.setDateCreate(rs.getDate("DateCreate").toString());
-                    f.setTitleId(rs.getInt("TitleId"));
+                    f.setStatus(rs.getBoolean("Status"));
                     arrLst.add(f);
                 }
                 if (count > 0) {
@@ -290,11 +292,11 @@ public class Feedback {
                     count++;
                     Feedback f = new Feedback();
                     f.setFeedbackId(rs.getInt("FeedbackId"));
-                    f.setTitle(rs.getString("Title"));
+                    f.setQuestionF(rs.getString("QuestionF"));
                     f.setAccountId(rs.getInt("AccountId"));
-                    f.setDescription(rs.getString("Description"));
+                    f.setAnswerF(rs.getString("AnswerF"));
                     f.setDateCreate(rs.getDate("DateCreate").toString());
-                    f.setTitleId(rs.getInt("TitleId"));
+                    f.setStatus(rs.getBoolean("Status"));
                     arrLst.add(f);
                 }
                 if (count > 0) {

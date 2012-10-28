@@ -26,27 +26,40 @@ public class Albums {
     private PreparedStatement ps;
     private String sql;
     private Statement stmt;
+    
     private int albumsId;
     private String albumsName;
     private String description;
     private String dateCreate;
     private int cateId;
+    private boolean status;
     private int accountId;
 
     public Albums() {
         conn = new Connect();
     }
 
-    public Albums(int albumsId, String albumsName, String description, String dateCreate, int cateId, int accountId) {
+    public Albums(int albumsId, String albumsName, String description, String dateCreate, int cateId, boolean  status,int accountId) {
         this.albumsId = albumsId;
         this.albumsName = albumsName;
         this.description = description;
         this.dateCreate = dateCreate;
         this.cateId = cateId;
+        this.status=status;
         this.accountId = accountId;
         conn = new Connect();
     }
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    
+    
     public int getAlbumsId() {
         return albumsId;
     }
@@ -95,15 +108,16 @@ public class Albums {
         this.accountId = accountId;
     }
 
-    public boolean insert(String albumsName, String description, String dateCreate, int cateId, int accountId) {
+    public boolean insert(String albumsName, String description, String dateCreate, int cateId, boolean status,int accountId) {
         try {
-            sql = "INSERT INTO ALBUMS (AlbumsName, Description, DateCreate, CateId, AccountId) VALUES(?,?,?,?,?)";
+            sql = "INSERT INTO ALBUMS (AlbumsName, Description, DateCreate, CateId,Status,AccountId) VALUES(?,?,?,?,?,?)";
             ps = conn.getConn().prepareStatement(sql);
             ps.setObject(1, albumsName);
             ps.setObject(2, description);
             ps.setObject(3, dateCreate);
             ps.setObject(4, cateId);
-            ps.setObject(5, accountId);
+            ps.setObject(5, status);
+            ps.setObject(6, accountId);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -118,16 +132,17 @@ public class Albums {
         }
     }
 
-    public boolean update(int albumsId, String albumsName, String description, String dateCreate, int cateId, int accountId) {
+    public boolean update(int albumsId, String albumsName, String description, String dateCreate, int cateId,boolean status, int accountId) {
         try {
-            sql = "UPDATE  ALBUMS SET AlbumsName =?, Description =?, DateCreate =?, CateId =?, AccountId =? where AlbumsId=?";
+            sql = "UPDATE  ALBUMS SET AlbumsName =?, Description =?, DateCreate =?, CateId =?,Status=?, AccountId =? where AlbumsId=?";
             ps = conn.getConn().prepareStatement(sql);
             ps.setObject(1, albumsName);
             ps.setObject(2, description);
             ps.setObject(3, dateCreate);
             ps.setObject(4, cateId);
-            ps.setObject(5, accountId);
-            ps.setObject(6, albumsId);
+            ps.setObject(5, status);
+            ps.setObject(6, accountId);
+            ps.setObject(7, albumsId);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -177,6 +192,7 @@ public class Albums {
                     al.setDescription(rs.getString("Description"));
                     al.setDateCreate(rs.getDate("DateCreate").toString());
                     al.setCateId(rs.getInt("CateId"));
+                    al.setStatus(rs.getBoolean("Status"));
                     al.setAccountId(rs.getInt("AccountId"));
                     arrLst.add(al);
                 }
@@ -213,6 +229,7 @@ public class Albums {
                     al.setDescription(rs.getString("Description"));
                     al.setDateCreate(rs.getDate("DateCreate").toString());
                     al.setCateId(rs.getInt("CateId"));
+                    al.setStatus(rs.getBoolean("Status"));
                     al.setAccountId(rs.getInt("AccountId"));
                     arrLst.add(al);
                 }
@@ -293,6 +310,7 @@ public class Albums {
                     al.setDescription(rs.getString("Description"));
                     al.setDateCreate(rs.getDate("DateCreate").toString());
                     al.setCateId(rs.getInt("CateId"));
+                    al.setStatus(rs.getBoolean("Status"));
                     al.setAccountId(rs.getInt("AccountId"));
                     arrLst.add(al);
                 }

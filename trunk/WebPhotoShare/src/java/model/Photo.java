@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 public class Photo {
     private int photoId;
     private String image;
-    private boolean status;
     private int albumsId;
     private String description;
     private String uploadDate;
@@ -38,10 +37,9 @@ public class Photo {
         conn = new Connect();
     }
 
-    public Photo(int photoId, String image, boolean status, int albumsId, String description, String uploadDate) {
+    public Photo(int photoId, String image, int albumsId, String description, String uploadDate) {
         this.photoId = photoId;
         this.image = image;
-        this.status = status;
         this.albumsId = albumsId;
         this.description = description;
         this.uploadDate = uploadDate;
@@ -62,14 +60,6 @@ public class Photo {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public int getAlbumsId() {
@@ -96,15 +86,14 @@ public class Photo {
         this.uploadDate = uploadDate;
     }
 
-    public boolean insert(String image, boolean status, int albumsId, String description, String uploadDate) {
+    public boolean insert(String image, int albumsId, String description, String uploadDate) {
         try {
-            sql = "INSERT INTO PHOTO(Image, Status, AlbumsId, Description, UploadDate) VALUES(?,?,?,?,?)";
+            sql = "INSERT INTO PHOTO(Image, AlbumsId, Description, UploadDate) VALUES(?,?,?,?)";
             ps = conn.getConn().prepareStatement(sql);
             ps.setObject(1, image);
-            ps.setObject(2, status);
-            ps.setObject(3, albumsId);
-            ps.setObject(4, description);
-            ps.setObject(5, uploadDate);
+            ps.setObject(2, albumsId);
+            ps.setObject(3, description);
+            ps.setObject(4, uploadDate);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -119,16 +108,15 @@ public class Photo {
         }
     }
 
-    public boolean update(int photoId, String image, boolean status, int albumsId, String description, String uploadDate) {
+    public boolean update(int photoId, String image,  int albumsId, String description, String uploadDate) {
         try {
-            sql = "UPDATE PHOTO SET Image =?, Status =?, AlbumsId =?, Description =?, UploadDate =? where PhotoId=?";
+            sql = "UPDATE PHOTO SET Image =?, AlbumsId =?, Description =?, UploadDate =? where PhotoId=?";
             ps = conn.getConn().prepareStatement(sql);
             ps.setObject(1, image);
-            ps.setObject(2, status);
-            ps.setObject(3, albumsId);
-            ps.setObject(4, description);
-            ps.setObject(5, uploadDate);
-            ps.setObject(6, photoId);
+            ps.setObject(2, albumsId);
+            ps.setObject(3, description);
+            ps.setObject(4, uploadDate);
+            ps.setObject(5, photoId);
             int result = ps.executeUpdate();
             if (result > 0) {
                 return true;
@@ -165,7 +153,7 @@ public class Photo {
     public ArrayList getAll() {
         try {
             stmt = conn.getConn().createStatement();
-            sql = "SELECT * from Role";
+            sql = "SELECT * from PHOTO";
             ResultSet rs = stmt.executeQuery(sql);
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
@@ -175,7 +163,6 @@ public class Photo {
                     Photo p = new Photo();
                     p.setPhotoId(rs.getInt("PhotoId"));
                     p.setImage(rs.getString("Image"));
-                    p.setStatus(rs.getBoolean("Status"));
                     p.setAlbumsId(rs.getInt("AlbumsId"));
                     p.setDescription(rs.getString("Description"));
                     p.setUploadDate(rs.getDate("UploadDate").toString());
@@ -198,11 +185,11 @@ public class Photo {
 
     }
 
-    public Photo getById(int roleId) {
+    public Photo getById( int photoId) {
         try {
-            sql = "SELECT * from Role where RoleId=?";
+            sql = "SELECT * from PHOTO where PhotoId=?";
             ps = conn.getConn().prepareStatement(sql);
-            ps.setObject(1, roleId);
+            ps.setObject(1, photoId);
             ResultSet rs = ps.executeQuery();
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
@@ -212,7 +199,6 @@ public class Photo {
                     Photo p = new Photo();
                     p.setPhotoId(rs.getInt("PhotoId"));
                     p.setImage(rs.getString("Image"));
-                    p.setStatus(rs.getBoolean("Status"));
                     p.setAlbumsId(rs.getInt("AlbumsId"));
                     p.setDescription(rs.getString("Description"));
                     p.setUploadDate(rs.getDate("UploadDate").toString());
@@ -236,7 +222,7 @@ public class Photo {
 
     public ArrayList search(Hashtable htb) {
         try {
-            sql = "SELECT * from Role";
+            sql = "SELECT * from PHOTO";
             Set set = htb.entrySet();
             Iterator it = set.iterator();
 
@@ -292,7 +278,6 @@ public class Photo {
                     Photo p = new Photo();
                     p.setPhotoId(rs.getInt("PhotoId"));
                     p.setImage(rs.getString("Image"));
-                    p.setStatus(rs.getBoolean("Status"));
                     p.setAlbumsId(rs.getInt("AlbumsId"));
                     p.setDescription(rs.getString("Description"));
                     p.setUploadDate(rs.getDate("UploadDate").toString());

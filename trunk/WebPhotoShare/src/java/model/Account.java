@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utils.SecurityLib;
 
 /**
  *
@@ -59,13 +60,15 @@ public class Account {
         conn = new Connect();
     }
 
-    public boolean getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    
 
     public int getAccountId() {
         return accountId;
@@ -419,12 +422,14 @@ public class Account {
         }
     }
 
-    public Account checkLogin(String username, String password) {
+    public Account checkLogin(String username, String password,int roleId, boolean status) {
         try {
-            sql = "SELECT ACCOUNT.*, Role.* from ACCOUNT INNER JOIN Role ON ACCOUNT.RoleId = Role.RoleId where UserName=? and Password=?";
+            sql = "SELECT ACCOUNT.*, Role.* from ACCOUNT INNER JOIN Role ON ACCOUNT.RoleId = Role.RoleId where UserName=? and Password=? and ACCOUNT.RoleId=? and Status=?";
             ps = conn.getConn().prepareStatement(sql);
             ps.setObject(1, username);
             ps.setObject(2, password);
+            ps.setObject(3, roleId);
+            ps.setObject(4, status);
             ResultSet rs = ps.executeQuery();
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
@@ -464,7 +469,7 @@ public class Account {
     public static void main(String[] args) {
 //       ---------------------------------------------------------
 //       Account acc = new Account();
-//       boolean b = acc.insert("vuvietan", "123456", 0, "vuvietan1990@gmail.com", true, "vũ việt an", "hn","06/25/1990","06/25/1990",false);
+//       boolean b = acc.insert("vuvietan",SecurityLib.Md5("123456"), 0, "vuvietan1990@gmail.com", true, "vũ việt an", "hn","06/25/1990","06/25/1990",false);
 //       boolean b=acc.delete(1);
 //        if(b) {
 //           System.out.println("ok");
