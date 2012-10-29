@@ -259,7 +259,28 @@
             <div class="nav-outer"> 
 
                 <!-- start nav-right -->
-                <div id="nav-right">
+                <div class="nava">
+		<div class="table">
+		
+		<ul class="select"><li><a><b>Ten Admin</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<div class="nav-divider">&nbsp;</div>
+		                    
+		<ul class="current"><li><a href="AdminLogout"><b>Logout</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		</div>
+        </div>
+                <%--  <div id="nav-right">
 
                     <div class="nav-divider">&nbsp;</div>
                     <div class="showhide-account"><img src="images/shared/nav/nav_myaccount.gif" width="93" height="14" alt="" /></div>
@@ -271,7 +292,7 @@
 
                     <!--  end account-content -->
 
-                </div>
+                </div> --%>
                 <!-- end nav-right -->
 
 
