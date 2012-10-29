@@ -193,6 +193,20 @@
         </script>
     </head>
     <body> 
+        <%
+            session = request.getSession();
+            Account a= (Account)session.getAttribute("account");
+            if(a==null) {
+                out.print("<script>alert('You must be login system');window.location='AdminLogin.jsp';</script>");
+            }
+        %>
+        
+         <%
+            if(request.getAttribute("msg")!=null) {
+               out.print("<script>alert('"+request.getAttribute("msg").toString()+"');</script>");
+            }
+            request.setAttribute("msg", null);
+        %>
         <!-- Start: page-top-outer -->
         <div id="page-top-outer">    
 
@@ -207,21 +221,26 @@
 
                 <!--  start top-search -->
                 <div id="top-search">
-                    <table border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td><input type="text" value="Search" class="top-search-inp" /></td>
-                            <td>
-                                <select  class="styledselect">
-                                    <option value=""> UserName</option>
-                                    <option value=""> Email</option>
-                                    <option value=""> Status</option>
-                                </select> 
-                            </td>
-                            <td>
-                                <input type="image" src="images/shared/top_search_btn.gif"  />
-                            </td>
-                        </tr>
-                    </table>
+                    <form name="frmSearch" method="get" id="frmSearch" action="AdminSearch">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td><input type="text" value="" class="top-search-inp" name="search"/></td>
+                                <td>
+                                    <select class="styledselect" name="field">
+                                        <option value="All"> All</option>
+                                        <option value="Username"> UserName</option>
+                                        <option value="Email"> Email</option>
+                                        <option value="Status"> Active</option>
+                                        <option value="Admin"> Admin</option>
+                                    </select> 
+                                </td>
+                                <td>
+                                    <input type="submit" name="submit" value="" id="btnSubmit" style="width: 65px; height: 29px; border: none; background-image: url(images/shared/top_search_btn.gif)"/>
+                                    <!--<input type="image" src="images/shared/top_search_btn.gif" onclick=""/>-->
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
                 </div>
                 <!--  end top-search -->
                 <div class="clear"></div>
@@ -245,7 +264,7 @@
                     <div class="nav-divider">&nbsp;</div>
                     <div class="showhide-account"><img src="images/shared/nav/nav_myaccount.gif" width="93" height="14" alt="" /></div>
                     <div class="nav-divider">&nbsp;</div>
-                    <a href="" id="logout"><img src="images/shared/nav/nav_logout.gif" width="64" height="14" alt="" /></a>
+                    <a href="AdminLogout" id="logout"><img src="images/shared/nav/nav_logout.gif" width="64" height="14" alt="" /></a>
                     <div class="clear">&nbsp;</div>
 
                     <!--  start account-content -->	
@@ -260,7 +279,7 @@
                 <div class="nav">
                     <div class="table">
 
-                        <ul class="current"><li><a href="#nogo"><b>Account</b><!--[if IE 7]><!--></a><!--<![endif]-->
+                        <ul class="current"><li><a href="ManagementAccount.jsp"><b>Account</b><!--[if IE 7]><!--></a><!--<![endif]-->
                                 <!--[if lte IE 6]><table><tr><td><![endif]-->
 
                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -359,12 +378,13 @@
 
                                     <!--  start product-table ..................................................................................... -->
                                     <!--                                    <form id="mainform" action="">-->
-                                    <form name="frmView" id="frmView" method="post" action="">
+                                    <form name="frmView" id="frmView" method="post" action="AdminDeletes">
                                         <table border="1" id="myTable" class="tablesorter">
 
                                             <thead>
                                                 <tr>
                                                     <th></th>
+                                                    <th>Account ID</th>
                                                     <th>UserName</th>
                                                     <th>FullName</th>
                                                     <th>Gender</th>
@@ -372,6 +392,7 @@
                                                     <th>Birthday</th>
                                                     <th>Email</th>
                                                     <th>Date Create</th>
+                                                    <th>Role Name</th>
                                                     <th>Active</th>
                                                     <th>Edit</th>
                                                     <th>Del</th>
@@ -386,7 +407,8 @@
                                                         s = (Account) o;
                                                 %>
                                                 <tr>
-                                                    <td><input type="checkbox" name="items" /></td>
+                                                    <td><input type="checkbox" name="items" value="<% out.print(s.getAccountId()); %>" /></td>
+                                                    <td><% out.print(s.getAccountId());%></td>
                                                     <td><% out.print(s.getUserName());%></td>
                                                     <td><% out.print(s.getFullName());%></td>  
                                                     <td><%
@@ -400,22 +422,46 @@
                                                     <td><% out.print(s.getBirthday());%></td> 
                                                     <td><% out.print(s.getEmail());%></td>
                                                     <td><% out.print(s.getDateCreate().toString());%></td>
+                                                    <td><% out.print(s.getRoleName());%></td>
                                                     <td><%
                                                         if (s.isStatus()) {
-                                                            %>
-                                                            <input type="checkbox" name="status" readonly="true" checked="true" />
-                                                            <%
-                                                        } else {
-                                                           %>
-                                                            <input type="checkbox" name="status" readonly="true" checked="false" />
-                                                            <%
-                                                        }
+                                                        %>
+                                                        <input type="checkbox" name="status" disabled="true" checked="true" />
+                                                        <%                                                            } else {
+                                                        %>
+                                                        <input type="checkbox" name="status" disabled="true" />
+                                                        <%                                                                }
                                                         %></td>
-        
-                                                    <td><a href="EditAccount.jsp"><img src="images/user_edit.png" alt="" title="" border="0" /></a></td>
-                                                    <td><a onClick="alert('goi phuong thuc delete')"><img src="images/trash.png" alt="" title="" border="0" /></a></td>             
+
+                                                    <td>
+                                                        <%
+                                                            if (s.getRoleId() == 0) {
+                                                        %>
+                                                            
+
+                                                        <%
+                                                            } else {
+                                                        %>
+                                                            <a href="EditAccount.jsp"><img src="images/user_edit.png" alt="" title="" border="0" /></a>
+                                                            <%                                                                    }
+                                                            %>
+                                                       </td>
+                                                    <td>
+                                                        <%
+                                                            if (s.getRoleId() == 0) {
+                                                        %>
+                                                            
+
+                                                        <%
+                                                            } else {
+                                                        %>
+                                                            <a onClick="if(confirm('Are you sure?')) {window.location='AdminDelete?accid=<%out.print(s.getAccountId());%>';}"><img src="images/trash.png" alt="" title="" border="0" /></a>
+                                                            <%                                                                    }
+                                                            %>
+
+                                                    </td>             
                                                 </tr>
-                                                <%                    }
+                                                <%}
                                                 %>
                                             </tbody>
                                         </table>

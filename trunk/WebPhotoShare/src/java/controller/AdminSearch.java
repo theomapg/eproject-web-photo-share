@@ -6,20 +6,20 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Hashtable;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.Account;
-import utils.SecurityLib;
 
 /**
  *
  * @author an
  */
-public class AdminLogin extends HttpServlet {
+public class AdminSearch extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -35,25 +35,26 @@ public class AdminLogin extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String passEncrypt = SecurityLib.Md5(password);
         
-        HttpSession session = request.getSession();
-
+        Hashtable table = new Hashtable();
+        String key = request.getParameter("field"); 
+        String value = request.getParameter("search"); 
         
-        Account acc = new Account().checkLogin(username, passEncrypt,0,true);
-        
-        if (acc != null) {
-            
-            session.setAttribute("account",acc);
-            response.sendRedirect("ManagementAccount.jsp");
-        } else {
-            request.setAttribute("error", "username or password invalid, or account is locked");
-            RequestDispatcher rd = request.getRequestDispatcher("AdminLogin.jsp");
-            rd.forward(request, response);
+        if (!value.equalsIgnoreCase("") && key.equalsIgnoreCase("username")) {
+            table.put("Username", value);
+        }else if(!value.equalsIgnoreCase("") && key.equalsIgnoreCase("email")) {
+            table.put("Email", value);
+        }else if(!value.equalsIgnoreCase("") && key.equalsIgnoreCase("status")) {
+            table.put("Status", value);
+        }else if(key.equalsIgnoreCase("admin")){
+            table.put("ACCOUNT.RoleId", 0);
         }
+        
+        Account a=new Account();
+        ArrayList arr=a.search(table);
+        request.setAttribute("info",arr);
+        RequestDispatcher rd = request.getRequestDispatcher("ManagementAccount.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

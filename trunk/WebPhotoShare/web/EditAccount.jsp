@@ -131,21 +131,26 @@
 
                 <!--  start top-search -->
                 <div id="top-search">
-                    <table border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td><input type="text" value="Search" class="top-search-inp" /></td>
-                            <td>
-                                <select  class="styledselect">
-                                    <option value=""> UserName</option>
-                                    <option value=""> Email</option>
-                                    <option value=""> Status</option>
-                                </select> 
-                            </td>
-                            <td>
-                                <input type="image" src="images/shared/top_search_btn.gif"  />
-                            </td>
-                        </tr>
-                    </table>
+                    <form name="frmSearch" method="get" id="frmSearch" action="AdminSearch">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td><input type="text" value="" class="top-search-inp" name="search" disabled="true"/></td>
+                                <td>
+                                    <select class="styledselect" name="field" disabled="true">
+                                        <option value="All"> All</option>
+                                        <option value="Username"> UserName</option>
+                                        <option value="Email"> Email</option>
+                                        <option value="Status"> Active</option>
+                                        <option value="Admin"> Admin</option>
+                                    </select> 
+                                </td>
+                                <td>
+                                    <input type="submit" name="submit" value="" disabled="false" id="btnSubmit" style="width: 65px; height: 29px; border: none; background-image: url(images/shared/top_search_btn.gif)"/>
+                                    <!--<input type="image" src="images/shared/top_search_btn.gif" onclick=""/>-->
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
                 </div>
                 <!--  end top-search -->
                 <div class="clear"></div>
@@ -184,7 +189,7 @@
                 <div class="nav">
                     <div class="table">
 
-                        <ul class="select"><li><a href="#nogo"><b>Account</b><!--[if IE 7]><!--></a><!--<![endif]-->
+                        <ul class="select"><li><a href="ManagementAccount.jsp"><b>Account</b><!--[if IE 7]><!--></a><!--<![endif]-->
                                 <!--[if lte IE 6]><table><tr><td><![endif]-->
 
                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -193,7 +198,7 @@
 
                         <div class="nav-divider">&nbsp;</div>
 
-                        <ul class="current"><li><a href="#nogo"><b>Albums</b><!--[if IE 7]><!--></a><!--<![endif]-->
+                        <ul class="select"><li><a href="#nogo"><b>Albums</b><!--[if IE 7]><!--></a><!--<![endif]-->
                                 <!--[if lte IE 6]><table><tr><td><![endif]-->
 
                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -221,6 +226,11 @@
                         <div class="nav-divider">&nbsp;</div>
 
                         <ul class="select"><li><a href="#nogo"><b>FAQs</b><!--[if IE 7]><!--></a><!--<![endif]-->
+                                <div class="select_sub">
+                                    <ul class="sub">
+                                        <li><a href="#">Add New FAQs</a></li>
+                                    </ul>
+                                </div>
                                 <!--[if lte IE 6]><table><tr><td><![endif]-->
 
                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -275,25 +285,16 @@
                                                 <tr>
                                                     <th valign="top">UserName:</th>
                                                     <td><input type="text" class="inp-form" /></td>
-                                                        <td>
-                                                            <%--<div class="error-left"></div>
+                                                        <td style="display: none">
+                                                            <div class="error-left"></div>
                                                          <div class="error-inner">This field is required.</div>
-                                                        </td>--%>
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                     <th valign="top">Password:</th>
                                                     <td><input type="password" class="inp-form" /></td>
                                                 </tr>
-                                                <tr>
-                                                    <th valign="top">Role:</th>
-                                                    <td>	
-                                                        <select  class="styledselect_form_1">
-                                                            <option value="">Admin</option>
-                                                            <option value="">Member</option>
-                                                        </select>
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
+                                                
                                                 <tr>
                                                     <th valign="top">FullName:</th>
                                                     <td><input type="text" class="inp-form" /></td>

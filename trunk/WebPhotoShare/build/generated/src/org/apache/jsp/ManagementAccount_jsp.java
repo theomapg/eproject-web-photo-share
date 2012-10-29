@@ -235,6 +235,24 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("        </script>\n");
       out.write("    </head>\n");
       out.write("    <body> \n");
+      out.write("        ");
+
+            session = request.getSession();
+            Account a= (Account)session.getAttribute("account");
+            if(a==null) {
+                out.print("<script>alert('You must be login system');window.location='AdminLogin.jsp';</script>");
+            }
+        
+      out.write("\n");
+      out.write("        \n");
+      out.write("         ");
+
+            if(request.getAttribute("msg")!=null) {
+               out.print("<script>alert('"+request.getAttribute("msg").toString()+"');</script>");
+            }
+            request.setAttribute("msg", null);
+        
+      out.write("\n");
       out.write("        <!-- Start: page-top-outer -->\n");
       out.write("        <div id=\"page-top-outer\">    \n");
       out.write("\n");
@@ -249,21 +267,26 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("\n");
       out.write("                <!--  start top-search -->\n");
       out.write("                <div id=\"top-search\">\n");
-      out.write("                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");
-      out.write("                        <tr>\n");
-      out.write("                            <td><input type=\"text\" value=\"Search\" class=\"top-search-inp\" /></td>\n");
-      out.write("                            <td>\n");
-      out.write("                                <select  class=\"styledselect\">\n");
-      out.write("                                    <option value=\"\"> UserName</option>\n");
-      out.write("                                    <option value=\"\"> Email</option>\n");
-      out.write("                                    <option value=\"\"> Status</option>\n");
-      out.write("                                </select> \n");
-      out.write("                            </td>\n");
-      out.write("                            <td>\n");
-      out.write("                                <input type=\"image\" src=\"images/shared/top_search_btn.gif\"  />\n");
-      out.write("                            </td>\n");
-      out.write("                        </tr>\n");
-      out.write("                    </table>\n");
+      out.write("                    <form name=\"frmSearch\" method=\"get\" id=\"frmSearch\" action=\"AdminSearch\">\n");
+      out.write("                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");
+      out.write("                            <tr>\n");
+      out.write("                                <td><input type=\"text\" value=\"\" class=\"top-search-inp\" name=\"search\"/></td>\n");
+      out.write("                                <td>\n");
+      out.write("                                    <select class=\"styledselect\" name=\"field\">\n");
+      out.write("                                        <option value=\"All\"> All</option>\n");
+      out.write("                                        <option value=\"Username\"> UserName</option>\n");
+      out.write("                                        <option value=\"Email\"> Email</option>\n");
+      out.write("                                        <option value=\"Status\"> Active</option>\n");
+      out.write("                                        <option value=\"Admin\"> Admin</option>\n");
+      out.write("                                    </select> \n");
+      out.write("                                </td>\n");
+      out.write("                                <td>\n");
+      out.write("                                    <input type=\"submit\" name=\"submit\" value=\"\" id=\"btnSubmit\" style=\"width: 65px; height: 29px; border: none; background-image: url(images/shared/top_search_btn.gif)\"/>\n");
+      out.write("                                    <!--<input type=\"image\" src=\"images/shared/top_search_btn.gif\" onclick=\"\"/>-->\n");
+      out.write("                                </td>\n");
+      out.write("                            </tr>\n");
+      out.write("                        </table>\n");
+      out.write("                    </form>\n");
       out.write("                </div>\n");
       out.write("                <!--  end top-search -->\n");
       out.write("                <div class=\"clear\"></div>\n");
@@ -287,7 +310,7 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("                    <div class=\"nav-divider\">&nbsp;</div>\n");
       out.write("                    <div class=\"showhide-account\"><img src=\"images/shared/nav/nav_myaccount.gif\" width=\"93\" height=\"14\" alt=\"\" /></div>\n");
       out.write("                    <div class=\"nav-divider\">&nbsp;</div>\n");
-      out.write("                    <a href=\"\" id=\"logout\"><img src=\"images/shared/nav/nav_logout.gif\" width=\"64\" height=\"14\" alt=\"\" /></a>\n");
+      out.write("                    <a href=\"AdminLogout\" id=\"logout\"><img src=\"images/shared/nav/nav_logout.gif\" width=\"64\" height=\"14\" alt=\"\" /></a>\n");
       out.write("                    <div class=\"clear\">&nbsp;</div>\n");
       out.write("\n");
       out.write("                    <!--  start account-content -->\t\n");
@@ -302,7 +325,7 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("                <div class=\"nav\">\n");
       out.write("                    <div class=\"table\">\n");
       out.write("\n");
-      out.write("                        <ul class=\"current\"><li><a href=\"#nogo\"><b>Account</b><!--[if IE 7]><!--></a><!--<![endif]-->\n");
+      out.write("                        <ul class=\"current\"><li><a href=\"ManagementAccount.jsp\"><b>Account</b><!--[if IE 7]><!--></a><!--<![endif]-->\n");
       out.write("                                <!--[if lte IE 6]><table><tr><td><![endif]-->\n");
       out.write("\n");
       out.write("                                <!--[if lte IE 6]></td></tr></table></a><![endif]-->\n");
@@ -403,20 +426,22 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("\n");
       out.write("                                    <!--  start product-table ..................................................................................... -->\n");
       out.write("                                    <!--                                    <form id=\"mainform\" action=\"\">-->\n");
-      out.write("                                    <form name=\"frmView\" id=\"frmView\" method=\"post\" action=\"\">\n");
+      out.write("                                    <form name=\"frmView\" id=\"frmView\" method=\"post\" action=\"AdminDeletes\">\n");
       out.write("                                        <table border=\"1\" id=\"myTable\" class=\"tablesorter\">\n");
       out.write("\n");
       out.write("                                            <thead>\n");
       out.write("                                                <tr>\n");
       out.write("                                                    <th></th>\n");
+      out.write("                                                    <th>Account ID</th>\n");
       out.write("                                                    <th>UserName</th>\n");
       out.write("                                                    <th>FullName</th>\n");
       out.write("                                                    <th>Gender</th>\n");
       out.write("                                                    <th>Address</th>\n");
       out.write("                                                    <th>Birthday</th>\n");
       out.write("                                                    <th>Email</th>\n");
-      out.write("                                                    <th>DateCreate</th>\n");
-      out.write("                                                    <th>Status</th>\n");
+      out.write("                                                    <th>Date Create</th>\n");
+      out.write("                                                    <th>Role Name</th>\n");
+      out.write("                                                    <th>Active</th>\n");
       out.write("                                                    <th>Edit</th>\n");
       out.write("                                                    <th>Del</th>\n");
       out.write("                                                </tr>\n");
@@ -432,7 +457,12 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
                                                 
       out.write("\n");
       out.write("                                                <tr>\n");
-      out.write("                                                    <td><input type=\"checkbox\" name=\"items\" /></td>\n");
+      out.write("                                                    <td><input type=\"checkbox\" name=\"items\" value=\"");
+ out.print(s.getAccountId()); 
+      out.write("\" /></td>\n");
+      out.write("                                                    <td>");
+ out.print(s.getAccountId());
+      out.write("</td>\n");
       out.write("                                                    <td>");
  out.print(s.getUserName());
       out.write("</td>\n");
@@ -461,20 +491,50 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
  out.print(s.getDateCreate().toString());
       out.write("</td>\n");
       out.write("                                                    <td>");
+ out.print(s.getRoleName());
+      out.write("</td>\n");
+      out.write("                                                    <td>");
 
                                                         if (s.isStatus()) {
-                                                            out.print("Active");
-                                                        } else {
-                                                            out.print("No Active");
-                                                        }
+                                                        
+      out.write("\n");
+      out.write("                                                        <input type=\"checkbox\" name=\"status\" disabled=\"true\" checked=\"true\" />\n");
+      out.write("                                                        ");
+                                                            } else {
+                                                        
+      out.write("\n");
+      out.write("                                                        <input type=\"checkbox\" name=\"status\" disabled=\"true\" />\n");
+      out.write("                                                        ");
+                                                                }
                                                         
       out.write("</td>\n");
-      out.write("                                                    <td><input type=\"checkbox\" name=\"\" /></td> \n");
+      out.write("\n");
       out.write("                                                    <td><a href=\"EditAccount.jsp\"><img src=\"images/user_edit.png\" alt=\"\" title=\"\" border=\"0\" /></a></td>\n");
-      out.write("                                                    <td><a onClick=\"alert('goi phuong thuc delete')\"><img src=\"images/trash.png\" alt=\"\" title=\"\" border=\"0\" /></a></td>             \n");
+      out.write("                                                    <td>\n");
+      out.write("                                                        ");
+
+                                                            if (s.getRoleId() == 0) {
+                                                        
+      out.write("\n");
+      out.write("                                                            \n");
+      out.write("\n");
+      out.write("                                                        ");
+
+                                                            } else {
+                                                        
+      out.write("\n");
+      out.write("                                                            <a onClick=\"if(confirm('Are you sure?')) {window.location='AdminDelete?accid=");
+out.print(s.getAccountId());
+      out.write("';}\"><img src=\"images/trash.png\" alt=\"\" title=\"\" border=\"0\" /></a>\n");
+      out.write("                                                            ");
+                                                                    }
+                                                            
+      out.write("\n");
+      out.write("\n");
+      out.write("                                                    </td>             \n");
       out.write("                                                </tr>\n");
       out.write("                                                ");
-                    }
+}
                                                 
       out.write("\n");
       out.write("                                            </tbody>\n");

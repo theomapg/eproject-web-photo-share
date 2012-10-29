@@ -13,13 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
-import utils.SecurityLib;
 
 /**
  *
  * @author an
  */
-public class AdminLogin extends HttpServlet {
+public class AdminDelete extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -35,24 +34,22 @@ public class AdminLogin extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String passEncrypt = SecurityLib.Md5(password);
-        
         HttpSession session = request.getSession();
-
-        
-        Account acc = new Account().checkLogin(username, passEncrypt,0,true);
-        
-        if (acc != null) {
-            
-            session.setAttribute("account",acc);
-            response.sendRedirect("ManagementAccount.jsp");
+        Account a = (Account) session.getAttribute("account");
+        if (a == null) {
+            out.print("<script>alert('You must be login system');window.location='AdminLogin.jsp';</script>");
         } else {
-            request.setAttribute("error", "username or password invalid, or account is locked");
-            RequestDispatcher rd = request.getRequestDispatcher("AdminLogin.jsp");
-            rd.forward(request, response);
+            int accId = Integer.parseInt(request.getParameter("accid"));
+            Account acc = new Account();
+            if (acc.delete(accId)) {
+                request.setAttribute("msg", "Delete successful");
+                RequestDispatcher rd = request.getRequestDispatcher("ManagementAccount.jsp");
+                rd.forward(request, response);
+            } else {
+                request.setAttribute("msg", "Exist data,delete fail");
+                RequestDispatcher rd = request.getRequestDispatcher("ManagementAccount.jsp");
+                rd.forward(request, response);
+            }
         }
     }
 

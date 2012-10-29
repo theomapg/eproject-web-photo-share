@@ -4,9 +4,41 @@
         <servlet-name>AdminLogin</servlet-name>
         <servlet-class>controller.AdminLogin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminSearch</servlet-name>
+        <servlet-class>controller.AdminSearch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDelete</servlet-name>
+        <servlet-class>controller.AdminDelete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeletes</servlet-name>
+        <servlet-class>controller.AdminDeletes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminLogout</servlet-name>
+        <servlet-class>controller.AdminLogout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminLogin</servlet-name>
         <url-pattern>/AdminLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSearch</servlet-name>
+        <url-pattern>/AdminSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDelete</servlet-name>
+        <url-pattern>/AdminDelete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeletes</servlet-name>
+        <url-pattern>/AdminDeletes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminLogout</servlet-name>
+        <url-pattern>/AdminLogout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

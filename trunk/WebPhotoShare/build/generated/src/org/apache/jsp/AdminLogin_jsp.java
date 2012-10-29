@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import model.Account;
 
 public final class AdminLogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -44,6 +45,7 @@ public final class AdminLogin_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
@@ -67,8 +69,17 @@ public final class AdminLogin_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <body id=\"login-bg\"> \n");
       out.write("        ");
 
-            if(request.getAttribute("error")!=null) {
-               out.print("<script>alert('"+request.getAttribute("error").toString()+"');</script>");
+            session = request.getSession();
+            Account a = (Account) session.getAttribute("account");
+            if (a != null) {
+                response.sendRedirect("ManagementAccount.jsp");
+            }
+        
+      out.write("\n");
+      out.write("        ");
+
+            if (request.getAttribute("error") != null) {
+                out.print("<script>alert('" + request.getAttribute("error").toString() + "');</script>");
             }
             request.setAttribute("error", null);
         

@@ -235,7 +235,7 @@ public class Account {
     public ArrayList getAll() {
         try {
             stmt = conn.getConn().createStatement();
-            sql = "SELECT ACCOUNT.*, Role.* from ACCOUNT INNER JOIN Role ON ACCOUNT.RoleId = Role.RoleId";
+            sql = "SELECT ACCOUNT.*, Role.* from ACCOUNT INNER JOIN Role ON ACCOUNT.RoleId = Role.RoleId order by AccountId DESC";
             ResultSet rs = stmt.executeQuery(sql);
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
@@ -247,6 +247,7 @@ public class Account {
                     acc.setUserName(rs.getString("UserName"));
                     acc.setPassword(rs.getString("Password"));
                     acc.setRoleName(rs.getString("RoleName"));
+                    acc.setRoleId(rs.getInt("RoleId"));
                     acc.setEmail(rs.getString("Email"));
                     acc.setGender(rs.getBoolean("Gender"));
                     acc.setFullName(rs.getString("FullName"));
@@ -288,6 +289,7 @@ public class Account {
                     acc.setUserName(rs.getString("UserName"));
                     acc.setPassword(rs.getString("Password"));
                     acc.setRoleName(rs.getString("RoleName"));
+                    acc.setRoleId(rs.getInt("RoleId"));
                     acc.setEmail(rs.getString("Email"));
                     acc.setGender(rs.getBoolean("Gender"));
                     acc.setFullName(rs.getString("FullName"));
@@ -348,6 +350,7 @@ public class Account {
             ResultSet rs = null;
             if (htb.size() == 0) {
                 stmt = conn.getConn().createStatement();
+                sql +=" Order by AccountId DESC";
                 rs = stmt.executeQuery(sql);
             } else if (htb.size() == 1) {
                 sql += " where ";
@@ -355,6 +358,7 @@ public class Account {
                     Map.Entry entry = (Map.Entry) it.next();
                     sql += entry.getKey() + " = ? ";
                 }
+                sql +=" Order by AccountId DESC";
                 ps = conn.getConn().prepareStatement(sql);
                 System.out.println(sql);
                 int i = 0;
@@ -376,6 +380,7 @@ public class Account {
                         sql += entry.getKey() + "=? and ";
                     }
                 }
+                sql +=" Order by AccountId DESC";
                 ps = conn.getConn().prepareStatement(sql);
                 System.out.println(sql);
                 int i = 0;
@@ -397,6 +402,7 @@ public class Account {
                     acc.setUserName(rs.getString("UserName"));
                     acc.setPassword(rs.getString("Password"));
                     acc.setRoleName(rs.getString("RoleName"));
+                    acc.setRoleId(rs.getInt("RoleId"));
                     acc.setEmail(rs.getString("Email"));
                     acc.setGender(rs.getBoolean("Gender"));
                     acc.setFullName(rs.getString("FullName"));
@@ -437,10 +443,11 @@ public class Account {
                 while (rs.next()) {
                     count++;
                     Account acc = new Account();
-                    acc.setAccountId(rs.getInt("AccountId"));
+                   acc.setAccountId(rs.getInt("AccountId"));
                     acc.setUserName(rs.getString("UserName"));
                     acc.setPassword(rs.getString("Password"));
                     acc.setRoleName(rs.getString("RoleName"));
+                    acc.setRoleId(rs.getInt("RoleId"));
                     acc.setEmail(rs.getString("Email"));
                     acc.setGender(rs.getBoolean("Gender"));
                     acc.setFullName(rs.getString("FullName"));
@@ -468,8 +475,8 @@ public class Account {
 
     public static void main(String[] args) {
 //       ---------------------------------------------------------
-//       Account acc = new Account();
-//       boolean b = acc.insert("vuvietan",SecurityLib.Md5("123456"), 0, "vuvietan1990@gmail.com", true, "vũ việt an", "hn","06/25/1990","06/25/1990",false);
+       Account acc = new Account();
+       boolean b = acc.insert("vuan10",SecurityLib.Md5("123456"), 1, "vuvietan1@gmail.com", true, "vũ việt an", "hn","06/25/1990","06/25/1990",false);
 //       boolean b=acc.delete(1);
 //        if(b) {
 //           System.out.println("ok");

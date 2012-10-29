@@ -59,10 +59,10 @@
                                                 <tr>
                                                     <th valign="top">UserName:</th>
                                                     <td><input type="text" class="inp-form" /></td>
-                                                        <%--<td>
+                                                        <td>
                                                         <div class="error-left"></div>
                                                          <div class="error-inner">This field is required.</div>
-                                                        </td> --%>
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                     <th valign="top">Password:</th>

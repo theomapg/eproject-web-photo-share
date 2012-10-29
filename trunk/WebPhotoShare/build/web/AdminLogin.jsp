@@ -4,6 +4,7 @@
     Author     : CMC
 --%>
 
+<%@page import="model.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,8 +28,15 @@
     </head>
     <body id="login-bg"> 
         <%
-            if(request.getAttribute("error")!=null) {
-               out.print("<script>alert('"+request.getAttribute("error").toString()+"');</script>");
+            session = request.getSession();
+            Account a = (Account) session.getAttribute("account");
+            if (a != null) {
+                response.sendRedirect("ManagementAccount.jsp");
+            }
+        %>
+        <%
+            if (request.getAttribute("error") != null) {
+                out.print("<script>alert('" + request.getAttribute("error").toString() + "');</script>");
             }
             request.setAttribute("error", null);
         %>
