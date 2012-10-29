@@ -246,12 +246,7 @@
 
                         <div class="nav-divider">&nbsp;</div>
 
-                        <ul class="select"><li><a href="#nogo"><b>FAQs</b><!--[if IE 7]><!--></a><!--<![endif]-->
-                                <div class="select_sub">
-                                    <ul class="sub">
-                                        <li><a href="#">Add New FAQs</a></li>
-                                    </ul>
-                                </div>
+                        <ul class="select"><li><a href="#nogo"><b>FAQs</b><!--[if IE 7]><!--></a><!--<![endif]-->                      
                                 <!--[if lte IE 6]><table><tr><td><![endif]-->
 
                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -382,7 +377,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <select id="m" class="styledselect-month">
-                                                                        <option value="">mmm</option>
+                                                                        <option value="">mm</option>
                                                                         <option value="1">Jan</option>
                                                                         <option value="2">Feb</option>
                                                                         <option value="3">Mar</option>

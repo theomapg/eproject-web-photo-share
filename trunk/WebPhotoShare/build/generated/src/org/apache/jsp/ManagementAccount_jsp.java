@@ -509,7 +509,25 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
                                                         
       out.write("</td>\n");
       out.write("\n");
-      out.write("                                                    <td><a href=\"EditAccount.jsp\"><img src=\"images/user_edit.png\" alt=\"\" title=\"\" border=\"0\" /></a></td>\n");
+      out.write("                                                    <td>\n");
+      out.write("                                                        ");
+
+                                                            if (s.getRoleId() == 0) {
+                                                        
+      out.write("\n");
+      out.write("                                                            \n");
+      out.write("\n");
+      out.write("                                                        ");
+
+                                                            } else {
+                                                        
+      out.write("\n");
+      out.write("                                                            <a href=\"EditAccount.jsp\"><img src=\"images/user_edit.png\" alt=\"\" title=\"\" border=\"0\" /></a>\n");
+      out.write("                                                            ");
+                                                                    }
+                                                            
+      out.write("\n");
+      out.write("                                                       </td>\n");
       out.write("                                                    <td>\n");
       out.write("                                                        ");
 

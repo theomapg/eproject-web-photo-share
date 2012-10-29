@@ -428,7 +428,19 @@
                                                         s = (Account) o;
                                                 %>
                                                 <tr>
-                                                    <td><input type="checkbox" name="items" value="<% out.print(s.getAccountId()); %>" /></td>
+                                                    <td>
+                                                        <%
+                                                            if (s.getRoleId() == 0) {
+                                                        %>
+                                                            
+
+                                                        <%
+                                                            } else {
+                                                        %>
+                                                             <input type="checkbox" name="items" value="<% out.print(s.getAccountId()); %>" /></td>
+                                                            <%                                                                    }
+                                                            %>
+                                                       
                                                     <td><% out.print(s.getAccountId());%></td>
                                                     <td><% out.print(s.getUserName());%></td>
                                                     <td><% out.print(s.getFullName());%></td>  
