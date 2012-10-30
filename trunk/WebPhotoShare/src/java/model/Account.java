@@ -474,7 +474,7 @@ public class Account {
     public static void main(String[] args) {
 //       ---------------------------------------------------------
 //       Account acc = new Account();
-//       boolean b = acc.insert("vhquan",SecurityLib.Md5("123456"), 2, "vuvietan1@gmail.com", true, "vũ việt an", "hn","06/25/1990","06/25/1990",2);
+//       boolean b = acc.insert("vuan",SecurityLib.Md5("123456"), 2, "vuvietan1@gmail.com", true, "vũ việt an", "hn","06/25/1990","06/26/1990",2);
 //       boolean b=acc.delete(1);
 //        if(b) {
 //           System.out.println("ok");

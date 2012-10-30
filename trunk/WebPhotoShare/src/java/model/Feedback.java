@@ -27,6 +27,7 @@ public class Feedback {
     private String answerF;
     private String dateCreate;
     private boolean status;
+    private String username;
 
     private Connect conn;
     private PreparedStatement ps;
@@ -47,6 +48,16 @@ public class Feedback {
         conn = new Connect();
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    
+    
     public int getFeedbackId() {
         return feedbackId;
     }
@@ -166,7 +177,7 @@ public class Feedback {
     public ArrayList getAll() {
         try {
             stmt = conn.getConn().createStatement();
-            sql = "SELECT * from FEEDBACK";
+            sql = "SELECT FEEDBACK.*, ACCOUNT.UserName FROM   ACCOUNT INNER JOIN  FEEDBACK ON ACCOUNT.AccountId = FEEDBACK.AccountId";
             ResultSet rs = stmt.executeQuery(sql);
             ArrayList arrLst = new ArrayList();
             if (rs != null) {
@@ -180,6 +191,7 @@ public class Feedback {
                     f.setAnswerF(rs.getString("AnswerF"));
                     f.setDateCreate(rs.getDate("DateCreate").toString());
                     f.setStatus(rs.getBoolean("Status"));
+                    f.setUsername(rs.getString("UserName"));
                     arrLst.add(f);
                 }
                 if (count > 0) {
@@ -201,7 +213,7 @@ public class Feedback {
 
     public Feedback getById(int feedbackId) {
         try {
-            sql = "SELECT * from FEEDBACK where FeedbackId=?";
+            sql = "SELECT FEEDBACK.*, ACCOUNT.UserName FROM   ACCOUNT INNER JOIN  FEEDBACK ON ACCOUNT.AccountId = FEEDBACK.AccountId where FeedbackId=?";
             ps = conn.getConn().prepareStatement(sql);
             ps.setObject(1, feedbackId);
             ResultSet rs = ps.executeQuery();
@@ -217,6 +229,7 @@ public class Feedback {
                     f.setAnswerF(rs.getString("AnswerF"));
                     f.setDateCreate(rs.getDate("DateCreate").toString());
                     f.setStatus(rs.getBoolean("Status"));
+                    f.setUsername(rs.getString("UserName"));
                     arrLst.add(f);
                 }
                 if (count > 0) {
@@ -237,7 +250,7 @@ public class Feedback {
 
     public ArrayList search(Hashtable htb) {
         try {
-            sql = "SELECT * from FEEDBACK";
+            sql = "SELECT FEEDBACK.*, ACCOUNT.UserName FROM ACCOUNT INNER JOIN  FEEDBACK ON ACCOUNT.AccountId = FEEDBACK.AccountId";
             Set set = htb.entrySet();
             Iterator it = set.iterator();
 
@@ -297,6 +310,7 @@ public class Feedback {
                     f.setAnswerF(rs.getString("AnswerF"));
                     f.setDateCreate(rs.getDate("DateCreate").toString());
                     f.setStatus(rs.getBoolean("Status"));
+                    f.setUsername(rs.getString("UserName"));
                     arrLst.add(f);
                 }
                 if (count > 0) {

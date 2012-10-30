@@ -4,10 +4,10 @@
     Author     : CMC
 --%>
 
-<%@page import="model.Account"%>
+<%@page import="model.Feedback"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8" import="model.Faqs"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="model.Account"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -222,15 +222,16 @@
 
                 <!--  start top-search -->
                 <div id="top-search">
-                    <form name="frmSearch" method="get" id="frmSearch" action="FaqsSearch">
+                    <form name="frmSearch" method="get" id="frmSearch" action="FeedBackSearch">
                         <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td><input type="text" value="" class="top-search-inp" name="search"/></td>
                                 <td>
                                     <select class="styledselect" name="field">
                                         <option value="All"> All</option>
-                                        <option value="Title"> Title</option>
+                                        <option value="Username"> UserName</option>
                                         <option value="DateCreate"> DateCreate</option>
+                                        <option value="status"> Status</option>
                                     </select> 
                                 </td>
                                 <td>
@@ -326,7 +327,7 @@
 
                         <div class="nav-divider">&nbsp;</div>
 
-                        <ul class="select"><li><a href="ManagementFeedback.jsp"><b>FeedBack</b><!--[if IE 7]><!--></a><!--<![endif]-->
+                        <ul class="current"><li><a href="ManagementFeedback.jsp"><b>FeedBack</b><!--[if IE 7]><!--></a><!--<![endif]-->
                                 <!--[if lte IE 6]><table><tr><td><![endif]-->
 
                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -335,7 +336,7 @@
 
                         <div class="nav-divider">&nbsp;</div>
 
-                        <ul class="current"><li><a href="ManagementFaqs.jsp"><b>FAQs</b><!--[if IE 7]><!--></a><!--<![endif]-->
+                        <ul class="select"><li><a href="ManagementFaqs.jsp"><b>FAQs</b><!--[if IE 7]><!--></a><!--<![endif]-->
                                 <!--[if lte IE 6]><table><tr><td><![endif]-->
 
                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -390,24 +391,25 @@
                                         if (request.getAttribute("info") != null) {
                                             arr = (ArrayList) request.getAttribute("info");
                                         } else {
-                                            Faqs faq = new Faqs();
-                                            arr = faq.getAll();
+                                            Feedback f = new Feedback();
+                                            arr = f.getAll();
                                         }
-
-                                        if(arr!=null){
+                                         if(arr!=null){
                                     %>
 
                                     <!--  start product-table ..................................................................................... -->
                                     <!--                                    <form id="mainform" action="">-->
-                                    <form name="frmView" id="frmView" method="post" action="FaqsDeletes" onsubmit="return confirm('Are you sure?');">
+                                    <form name="frmView" id="frmView" method="post" action="FeedBackDeletes" onsubmit="return confirm('Are you sure?');">
                                         <table border="1" id="myTable" class="tablesorter">
 
                                             <thead>
                                                 <tr>
                                                     <th></th>
-                                                    <th>Faqs ID</th>
-                                                    <th>Title</th>
+                                                    <th>Feedback ID</th>
+                                                    <th>Question</th>
+                                                    <th>Username</th>
                                                     <th>DateCreate</th>
+                                                    <th>Status</th>
                                                     <th>Edit</th>
                                                     <th>Delete</th>
                                                 </tr>
@@ -415,20 +417,29 @@
 
                                             <tbody>
                                                 <%
+
                                                     for (Object o : arr) {
-                                                        Faqs f = new Faqs();
-                                                        f = (Faqs) o;
+                                                        Feedback s = new Feedback();
+                                                        s = (Feedback) o;
                                                 %>
                                                 <tr>
-                                                    <td><input type="checkbox" name="items" value="<% out.print(f.getFaqsId());%>" /></td>
-                                                    <td><% out.print(f.getFaqsId());%></td>
-                                                    <td><% out.print(f.getTitle());%></td>
-                                                    <td><% out.print(f.getDateCreate());%></td> 
-                                                    <td><a href="EditFaqs.jsp?faqid=<%out.print(f.getFaqsId());%>"><img src="images/user_edit.png" alt="" title="" border="0" /></a></td>                                                                                               
-                                                    <td><a onClick="if(confirm('Are you sure?')) {window.location='FaqsDelete?faqid=<%out.print(f.getFaqsId());%>';}"><img src="images/trash.png" alt="" title="" border="0" /></a></td>           
+                                                    <td><input type="checkbox" name="items" value="<% out.print(s.getFeedbackId());%>" /></td>
+                                                    <td><% out.print(s.getFeedbackId());%></td>
+                                                    <td><% out.print(s.getQuestionF());%></td>
+                                                    <td><% out.print(s.getUsername());%></td>  
+                                                    <td><% out.print(s.getDateCreate());%></td>  
+                                                    <td><%
+                                                        if (s.isStatus()==true) {
+                                                            out.print("Read");
+                                                        } else {
+                                                            out.print("UnRead");
+                                                        }
+                                                        %></td>
+                                                    
+                                                    <td><a href="EditFeedBack.jsp?fid=<%out.print(s.getFeedbackId());%>"><img src="images/user_edit.png" alt="" title="" border="0" /></a></td>
+                                                    <td><a onClick="if(confirm('Are you sure?')) {window.location='FeedBackDelete?fid=<%out.print(s.getFeedbackId());%>';}"><img src="images/trash.png" alt="" title="" border="0" /></a></td>           
                                                 </tr>
                                                 <%}
-
                                                 %>
                                             </tbody>
                                         </table>

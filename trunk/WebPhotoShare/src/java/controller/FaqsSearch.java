@@ -14,12 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.Faqs;
 
 /**
  *
  * @author an
  */
-public class AdminSearch extends HttpServlet {
+public class FaqsSearch extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -35,35 +36,24 @@ public class AdminSearch extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
         Hashtable table = new Hashtable();
         String key = request.getParameter("field");
         String value = request.getParameter("search");
 
-        if (!value.equalsIgnoreCase("") && key.equalsIgnoreCase("username")) {
-            table.put("Username", value);
-        } else if (!value.equalsIgnoreCase("") && key.equalsIgnoreCase("email")) {
-            table.put("Email", value);
-        } else if (value.equalsIgnoreCase("wait") && key.equalsIgnoreCase("status")) {
-            table.put("Status", 0);
-        } else if (value.equalsIgnoreCase("active") && key.equalsIgnoreCase("status")) {
-            table.put("Status", 1);
-        } else if (value.equalsIgnoreCase("noactive") && key.equalsIgnoreCase("status")) {
-            table.put("Status", 2);
-        } else if (key.equalsIgnoreCase("admin")) {
-            table.put("ACCOUNT.RoleId", 1);
-        }else if (!value.equalsIgnoreCase("") && key.equalsIgnoreCase("DateCreate")) {
+        if (!value.equalsIgnoreCase("") && key.equalsIgnoreCase("Title")) {
+            table.put("Title", value);
+        } else if (!value.equalsIgnoreCase("") && key.equalsIgnoreCase("DateCreate")) {
             table.put("DateCreate", value);
         }
 
-        Account a = new Account();
+        Faqs a = new Faqs();
         ArrayList arr = a.search(table);
         if(arr !=null) {
             request.setAttribute("info", arr);
         }else{
             request.setAttribute("info", null);
         }
-        RequestDispatcher rd = request.getRequestDispatcher("ManagementAccount.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("ManagementFaqs.jsp");
         rd.forward(request, response);
     }
 

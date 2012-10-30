@@ -28,6 +28,22 @@
         <servlet-name>FaqsDeletes</servlet-name>
         <servlet-class>controller.FaqsDeletes</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FaqsSearch</servlet-name>
+        <servlet-class>controller.FaqsSearch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedBackDelete</servlet-name>
+        <servlet-class>controller.FeedBackDelete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedBackDeletes</servlet-name>
+        <servlet-class>controller.FeedBackDeletes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedBackSearch</servlet-name>
+        <servlet-class>controller.FeedBackSearch</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminLogin</servlet-name>
         <url-pattern>/AdminLogin</url-pattern>
@@ -55,6 +71,22 @@
     <servlet-mapping>
         <servlet-name>FaqsDeletes</servlet-name>
         <url-pattern>/FaqsDeletes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FaqsSearch</servlet-name>
+        <url-pattern>/FaqsSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedBackDelete</servlet-name>
+        <url-pattern>/FeedBackDelete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedBackDeletes</servlet-name>
+        <url-pattern>/FeedBackDeletes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedBackSearch</servlet-name>
+        <url-pattern>/FeedBackSearch</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -222,17 +222,19 @@
 
                 <!--  start top-search -->
                 <div id="top-search">
-                    <form name="frmSearch" method="get" id="frmSearch" action="">
+                    <form name="frmSearch" method="get" id="frmSearch" action="FaqsSearch">
                         <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td><input type="text" value="" class="top-search-inp" name="search"/></td>
                                 <td>
                                     <select class="styledselect" name="field">
                                         <option value="All"> All</option>
+                                        <option value="Title"> Title</option>
+                                        <option value="DateCreate"> DateCreate</option>
                                     </select> 
                                 </td>
                                 <td>
-                                    <input type="submit" name="submit" value="" id="btnSubmit" style="width: 65px; height: 29px; border: none; background-image: url(images/shared/top_search_btn.gif)" disabled="true"/>
+                                    <input type="submit" name="submit" value="" id="btnSubmit" style="width: 65px; height: 29px; border: none; background-image: url(images/shared/top_search_btn.gif)"/>
                                     <!--<input type="image" src="images/shared/top_search_btn.gif" onclick=""/>-->
                                 </td>
                             </tr>
@@ -324,7 +326,7 @@
 
                         <div class="nav-divider">&nbsp;</div>
 
-                        <ul class="select"><li><a href="#nogo"><b>FeedBack</b><!--[if IE 7]><!--></a><!--<![endif]-->
+                        <ul class="select"><li><a href="ManagementFeedback.jsp"><b>FeedBack</b><!--[if IE 7]><!--></a><!--<![endif]-->
                                 <!--[if lte IE 6]><table><tr><td><![endif]-->
 
                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -397,7 +399,7 @@
 
                                     <!--  start product-table ..................................................................................... -->
                                     <!--                                    <form id="mainform" action="">-->
-                                    <form name="frmView" id="frmView" method="post" action="FaqsDeletes">
+                                    <form name="frmView" id="frmView" method="post" action="FaqsDeletes" onsubmit="return confirm('Are you sure?');">
                                         <table border="1" id="myTable" class="tablesorter">
 
                                             <thead>

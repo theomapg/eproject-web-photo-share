@@ -232,6 +232,7 @@
                                         <option value="Email"> Email</option>
                                         <option value="Status"> Active</option>
                                         <option value="Admin"> Admin</option>
+                                        <option value="DateCreate"> DateCreate</option>
                                     </select> 
                                 </td>
                                 <td>
@@ -327,7 +328,7 @@
 
                         <div class="nav-divider">&nbsp;</div>
 
-                        <ul class="select"><li><a href="#nogo"><b>FeedBack</b><!--[if IE 7]><!--></a><!--<![endif]-->
+                       <ul class="select"><li><a href="ManagementFeedback.jsp"><b>FeedBack</b><!--[if IE 7]><!--></a><!--<![endif]-->
                                 <!--[if lte IE 6]><table><tr><td><![endif]-->
 
                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -399,7 +400,7 @@
 
                                     <!--  start product-table ..................................................................................... -->
                                     <!--                                    <form id="mainform" action="">-->
-                                    <form name="frmView" id="frmView" method="post" action="AdminDeletes">
+                                    <form name="frmView" id="frmView" method="post" action="AdminDeletes" onsubmit="return confirm('Are you sure?');">
                                         <table border="1" id="myTable" class="tablesorter">
 
                                             <thead>

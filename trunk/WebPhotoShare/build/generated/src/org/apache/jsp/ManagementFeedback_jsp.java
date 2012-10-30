@@ -3,11 +3,12 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import model.Feedback;
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import java.util.ArrayList;
 import model.Account;
 
-public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class ManagementFeedback_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -44,6 +45,7 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
+      out.write("\n");
       out.write("\n");
       out.write("\n");
       out.write("\n");
@@ -267,7 +269,7 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("\n");
       out.write("                <!--  start top-search -->\n");
       out.write("                <div id=\"top-search\">\n");
-      out.write("                    <form name=\"frmSearch\" method=\"get\" id=\"frmSearch\" action=\"AdminSearch\">\n");
+      out.write("                    <form name=\"frmSearch\" method=\"get\" id=\"frmSearch\" action=\"FeedBackSearch\">\n");
       out.write("                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");
       out.write("                            <tr>\n");
       out.write("                                <td><input type=\"text\" value=\"\" class=\"top-search-inp\" name=\"search\"/></td>\n");
@@ -275,10 +277,8 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("                                    <select class=\"styledselect\" name=\"field\">\n");
       out.write("                                        <option value=\"All\"> All</option>\n");
       out.write("                                        <option value=\"Username\"> UserName</option>\n");
-      out.write("                                        <option value=\"Email\"> Email</option>\n");
-      out.write("                                        <option value=\"Status\"> Active</option>\n");
-      out.write("                                        <option value=\"Admin\"> Admin</option>\n");
       out.write("                                        <option value=\"DateCreate\"> DateCreate</option>\n");
+      out.write("                                        <option value=\"status\"> Status</option>\n");
       out.write("                                    </select> \n");
       out.write("                                </td>\n");
       out.write("                                <td>\n");
@@ -338,7 +338,7 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("                <div class=\"nav\">\n");
       out.write("                    <div class=\"table\">\n");
       out.write("\n");
-      out.write("                        <ul class=\"current\"><li><a href=\"ManagementAccount.jsp\"><b>Account</b><!--[if IE 7]><!--></a><!--<![endif]-->\n");
+      out.write("                        <ul class=\"select\"><li><a href=\"ManagementAccount.jsp\"><b>Account</b><!--[if IE 7]><!--></a><!--<![endif]-->\n");
       out.write("                                <!--[if lte IE 6]><table><tr><td><![endif]-->\n");
       out.write("\n");
       out.write("                                <!--[if lte IE 6]></td></tr></table></a><![endif]-->\n");
@@ -365,7 +365,7 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("\n");
       out.write("                        <div class=\"nav-divider\">&nbsp;</div>\n");
       out.write("\n");
-      out.write("                        <ul class=\"select\"><li><a href=\"#nogo\"><b>FeedBack</b><!--[if IE 7]><!--></a><!--<![endif]-->\n");
+      out.write("                        <ul class=\"current\"><li><a href=\"ManagementFeedback.jsp\"><b>FeedBack</b><!--[if IE 7]><!--></a><!--<![endif]-->\n");
       out.write("                                <!--[if lte IE 6]><table><tr><td><![endif]-->\n");
       out.write("\n");
       out.write("                                <!--[if lte IE 6]></td></tr></table></a><![endif]-->\n");
@@ -430,8 +430,8 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
                                         if (request.getAttribute("info") != null) {
                                             arr = (ArrayList) request.getAttribute("info");
                                         } else {
-                                            Account acc = new Account();
-                                            arr = acc.getAll();
+                                            Feedback f = new Feedback();
+                                            arr = f.getAll();
                                         }
                                          if(arr!=null){
                                     
@@ -439,21 +439,16 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("\n");
       out.write("                                    <!--  start product-table ..................................................................................... -->\n");
       out.write("                                    <!--                                    <form id=\"mainform\" action=\"\">-->\n");
-      out.write("                                    <form name=\"frmView\" id=\"frmView\" method=\"post\" action=\"AdminDeletes\" onsubmit=\"return confirm('Are you sure?');\">\n");
+      out.write("                                    <form name=\"frmView\" id=\"frmView\" method=\"post\" action=\"FeedBackDeletes\" onsubmit=\"return confirm('Are you sure?');\">\n");
       out.write("                                        <table border=\"1\" id=\"myTable\" class=\"tablesorter\">\n");
       out.write("\n");
       out.write("                                            <thead>\n");
       out.write("                                                <tr>\n");
       out.write("                                                    <th></th>\n");
-      out.write("                                                    <th>Account ID</th>\n");
-      out.write("                                                    <th>UserName</th>\n");
-      out.write("                                                    <th>FullName</th>\n");
-      out.write("                                                    <th>Gender</th>\n");
-      out.write("                                                    <th>Address</th>\n");
-      out.write("                                                    <th>Birthday</th>\n");
-      out.write("                                                    <th>Email</th>\n");
-      out.write("                                                    <th>Date Create</th>\n");
-      out.write("                                                    <th>Role Name</th>\n");
+      out.write("                                                    <th>Feedback ID</th>\n");
+      out.write("                                                    <th>Question</th>\n");
+      out.write("                                                    <th>Username</th>\n");
+      out.write("                                                    <th>DateCreate</th>\n");
       out.write("                                                    <th>Status</th>\n");
       out.write("                                                    <th>Edit</th>\n");
       out.write("                                                    <th>Delete</th>\n");
@@ -465,113 +460,42 @@ public final class ManagementAccount_jsp extends org.apache.jasper.runtime.HttpJ
 
 
                                                     for (Object o : arr) {
-                                                        Account s = new Account();
-                                                        s = (Account) o;
+                                                        Feedback s = new Feedback();
+                                                        s = (Feedback) o;
                                                 
       out.write("\n");
       out.write("                                                <tr>\n");
-      out.write("                                                    <td>\n");
-      out.write("                                                        ");
-
-                                                            if (s.getRoleId() == 0 && a.getRoleId() == 0) {
-                                                        
-      out.write("\n");
-      out.write("                                                        ");
-} else if ((s.getRoleId() == 0 || s.getRoleId() == 1) && a.getRoleId() == 1) {
-                                                        } else {
-                                                        
-      out.write("\n");
-      out.write("                                                        <input type=\"checkbox\" name=\"items\" value=\"");
- out.print(s.getAccountId());
+      out.write("                                                    <td><input type=\"checkbox\" name=\"items\" value=\"");
+ out.print(s.getFeedbackId());
       out.write("\" /></td>\n");
-      out.write("                                                        ");
-                                                                    }
-                                                        
-      out.write("\n");
-      out.write("\n");
       out.write("                                                    <td>");
- out.print(s.getAccountId());
+ out.print(s.getFeedbackId());
       out.write("</td>\n");
       out.write("                                                    <td>");
- out.print(s.getUserName());
+ out.print(s.getQuestionF());
       out.write("</td>\n");
       out.write("                                                    <td>");
- out.print(s.getFullName());
+ out.print(s.getUsername());
+      out.write("</td>  \n");
+      out.write("                                                    <td>");
+ out.print(s.getDateCreate());
       out.write("</td>  \n");
       out.write("                                                    <td>");
 
-                                                        if (s.isGender()) {
-                                                            out.print("Male");
+                                                        if (s.isStatus()==true) {
+                                                            out.print("Read");
                                                         } else {
-                                                            out.print("Female");
+                                                            out.print("UnRead");
                                                         }
                                                         
       out.write("</td>\n");
-      out.write("                                                    <td>");
- out.print(s.getAddress());
-      out.write("</td>\n");
-      out.write("                                                    <td>");
- out.print(s.getBirthday());
-      out.write("</td> \n");
-      out.write("                                                    <td>");
- out.print(s.getEmail());
-      out.write("</td>\n");
-      out.write("                                                    <td>");
- out.print(s.getDateCreate().toString());
-      out.write("</td>\n");
-      out.write("                                                    <td>");
- out.print(s.getRoleName());
-      out.write("</td>\n");
-      out.write("                                                    <td>");
-
-                                                        if (s.getStatus() == 0) {
-                                                            out.print("Wait");
-                                                        } else if (s.getStatus() == 1) {
-                                                            out.print("Active");
-                                                        } else {
-                                                            out.print("NoActive");
-                                                        }
-                                                        
-      out.write("</td>\n");
-      out.write("\n");
-      out.write("                                                    <td>\n");
-      out.write("                                                        ");
-
-                                                            if (s.getRoleId() == 0 && a.getRoleId() == 0) {
-                                                        
-      out.write("\n");
-      out.write("                                                        ");
-} else if ((s.getRoleId() == 0 || s.getRoleId() == 1) && a.getRoleId() == 1) {
-                                                        } else {
-                                                        
-      out.write("\n");
-      out.write("                                                        <a href=\"EditAccount.jsp?accid=");
-out.print(s.getAccountId());
+      out.write("                                                    \n");
+      out.write("                                                    <td><a href=\"EditFeedBack.jsp?fid=");
+out.print(s.getFeedbackId());
       out.write("\"><img src=\"images/user_edit.png\" alt=\"\" title=\"\" border=\"0\" /></a></td>\n");
-      out.write("                                                            ");
-                                                                    }
-                                                            
-      out.write("\n");
-      out.write("                                                    </td>\n");
-      out.write("                                                    <td>\n");
-      out.write("                                                        ");
-
-                                                            if (s.getRoleId() == 0 && a.getRoleId() == 0) {
-                                                        
-      out.write("\n");
-      out.write("                                                        ");
-} else if ((s.getRoleId() == 0 || s.getRoleId() == 1) && a.getRoleId() == 1) {
-                                                        } else {
-                                                        
-      out.write("\n");
-      out.write("                                                        <a onClick=\"if(confirm('Are you sure?')) {window.location='AdminDelete?accid=");
-out.print(s.getAccountId());
-      out.write("';}\"><img src=\"images/trash.png\" alt=\"\" title=\"\" border=\"0\" /></a></td>\n");
-      out.write("                                                            ");
-                                                                    }
-                                                            
-      out.write("\n");
-      out.write("                                                    </td>             \n");
+      out.write("                                                    <td><a onClick=\"if(confirm('Are you sure?')) {window.location='FeedBackDelete?fid=");
+out.print(s.getFeedbackId());
+      out.write("';}\"><img src=\"images/trash.png\" alt=\"\" title=\"\" border=\"0\" /></a></td>           \n");
       out.write("                                                </tr>\n");
       out.write("                                                ");
 }
