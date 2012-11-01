@@ -289,7 +289,7 @@ public final class EditAccount_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("                        <div class=\"nav-divider\">&nbsp;</div>\n");
       out.write("\n");
-      out.write("                        <ul class=\"select\"><li><a href=\"#nogo\"><b>FeedBack</b><!--[if IE 7]><!--></a><!--<![endif]-->\n");
+      out.write("                       <ul class=\"select\"><li><a href=\"ManagementFeedback.jsp\"><b>FeedBack</b><!--[if IE 7]><!--></a><!--<![endif]-->\n");
       out.write("                                <!--[if lte IE 6]><table><tr><td><![endif]-->\n");
       out.write("\n");
       out.write("                                <!--[if lte IE 6]></td></tr></table></a><![endif]-->\n");
@@ -298,7 +298,7 @@ public final class EditAccount_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("                        <div class=\"nav-divider\">&nbsp;</div>\n");
       out.write("\n");
-      out.write("                        <ul class=\"select\"><li><a href=\"#nogo\"><b>FAQs</b><!--[if IE 7]><!--></a><!--<![endif]-->                      \n");
+      out.write("                        <ul class=\"select\"><li><a href=\"ManagementFaqs.jsp\"><b>FAQs</b><!--[if IE 7]><!--></a><!--<![endif]-->                      \n");
       out.write("                                <!--[if lte IE 6]><table><tr><td><![endif]-->\n");
       out.write("\n");
       out.write("                                <!--[if lte IE 6]></td></tr></table></a><![endif]-->\n");
