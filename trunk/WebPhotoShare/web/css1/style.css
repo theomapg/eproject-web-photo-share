@@ -27,7 +27,7 @@ p {padding-bottom:20px}
 header {height:645px}
 #logo {display:block;background:url(../images/logo.png) 0 0 no-repeat;width:276px;height:94px;text-indent:-9999px}
 #search {float:right;padding:41px 20px 0 0;width:600px}
-#search .input {float:right;width:148px;padding:5px 8px;font:14px Arial, Helvetica, sans-serif;background:#fff;color:#999;height:16px}
+#search .input {float:right;width:90px;padding:5px 8px;font:14px Arial, Helvetica, sans-serif;background:#fff;color:#999;height:16px}
 #search .submit {display:block;cursor:pointer;background:url(../images/search.gif) 0 0 no-repeat;width:26px;height:26px;float:right;margin-left:4px}
 #menu {float:right;padding:40px 19px 0 0}
 #menu li {float:left;padding-right:28px}
@@ -101,90 +101,366 @@ a.aToolTipCloseBtn {display:block;height:20px;width:20px;overflow:hidden;backgro
 #ContactForm {padding:0 0 0 10px;margin-top:-4px}
 #ContactForm span {width:114px;float:left;font-weight:bold;line-height:28px}
 #ContactForm .wrapper {min-height:30px}
-#ContactForm .textarea_box {width:100%;overflow:hidden;min-height:274px}
+#ContactForm .textarea_box {width:80%;overflow:hidden;min-height:274px}
 #ContactForm {}
 #ContactForm {}
 #ContactForm a {margin-right:10px;float:left;margin-top:5px}
-#ContactForm .input {width:767px;height:16px;border:1px solid #d7d7d7;background:#fff;padding:5px;color:#000;font:14px Arial, Helvetica, sans-serif}
+#ContactForm .input {width:400px;height:16px;border:1px solid #d7d7d7;background:#fff;padding:5px;color:#000;font:14px Arial, Helvetica, sans-serif}
 #ContactForm textarea {overflow:auto;margin:0;width:767px;height:257px;border:1px solid #d7d7d7;background:#fff;padding:5px;color:#000;font:14px Arial, Helvetica, sans-serif}
+/*  LOGIN -------------------------------------------------------------------------------- */	
+
+#login-bg	{
+	background: url(../images/login/login_bg.jpg) no-repeat top center;
+	}
+#login-holder	{
+	margin: 0px auto 0 auto;
+	width: 508px;
+	}
+#loginbox	{
+	background: url(../images/login/loginbox_bg.png) no-repeat;
+	font-size: 12px;
+	height: 212px;
+	line-height: 12px;
+	padding-top: 60px;
+	position: relative;
+	width: 508px;
+	}
+#forgotbox	{
+	background: url(../images/login/loginbox_bg.png) no-repeat;
+	display: none;
+	font-size: 12px;
+	height: 212px;
+	line-height: 12px;
+	padding-top: 60px;
+	position: relative;
+	width: 508px;
+	}
+#login-inner	{
+	color: #161616;
+	font-family: Tahoma;
+	font-size: 13px;
+	line-height: 12px;
+	margin: 0 auto;
+	width: 310px;
+	}
+#login-inner label	{
+	color: #161616;
+	cursor: pointer;
+	font-family: Tahoma;
+	font-weight: bold;
+	line-height: 12px;
+	padding-left: 10px;
+	 
+	}
+ .checkbox-size	{
+	width:13px;
+	height:13px;
+	margin: 5px 0;
+	 
+	}	
+#login-inner th	{
+	padding: 0 0 6px 0;
+	text-align: left;
+	width: 95px;
+	}
+#login-inner td	{
+	padding: 0 0 6px 0;
+	}
+.login-inp	{
+	background: url(../images/login/inp_login.gif) no-repeat;
+	border: none;
+	color: #fff;
+	font-size: 16px;
+	height: 28px;
+	padding: 6px 6px 0 10px;
+	width: 204px;
+	}
+#logo-login	{
+	float: left;
+	height: 35px;
+	margin: 145px 0 0 15px;
+	}
+a.forgot-pwd	{
+	bottom: 30px;
+	color: #161616;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 12px;
+	position: absolute;
+	right: 40px;
+	}
+a:hover.forgot-pwd	{
+	color: #fff;
+	}
+#forgotbox-text	{
+	color: #161616;
+	font-family: Tahoma;
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 12px;
+	margin: 0 auto 40px auto;
+	width: 380px;
+	}
+#forgot-inner	{
+	color: #161616;
+	font-family: Tahoma;
+	font-size: 13px;
+	line-height: 12px;
+	margin: 0 auto;
+	width: 330px;
+	}
+#forgot-inner label	{
+	color: #161616;
+	cursor: pointer;
+	font-family: Tahoma;
+	font-weight: bold;
+	line-height: 12px;
+	padding-left: 10px;
+	}
+#forgot-inner th	{
+	padding: 0 0 6px 0;
+	text-align: left;
+	width: 110px;
+	}
+#forgot-inner td	{
+	padding: 0 0 6px 0;
+	}
+a.back-login	{
+	background: url(../images/login/icon_back_login.gif) no-repeat 0 4px;
+	bottom: 30px;
+	color: #161616;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 12px;
+	padding: 0 0 0 10px;
+	position: absolute;
+	right: 40px;
+	}
+a:hover.back-login	{
+	color: #fff;
+	}
+.submit-login	{
+	background: url(../images/login/submit_login.gif) no-repeat;
+	border: none;
+	cursor: pointer;
+	display: block;
+	height: 29px;
+	text-indent: -3000px;
+	width: 73px;
+	}
+.submit-login:hover	{
+	background: url(../images/login/submit_login.gif) no-repeat 0 -29px;
+	}
+#step-holder {
+font-family: Tahoma;
+	height:39px;
+	margin-bottom: 20px;
+}	
+
+
+
+
+.step-no {
+	float:left;
+	height:29px;
+	width:18px;
+	font-size: 18px;
+	line-height: 18px;
+	padding:10px 0 0 0;
+	text-align: center;
+}
+
+.step-no-off {
+	float:left;
+	height:29px;
+	width:18px;
+	font-size: 18px;
+	line-height: 18px;
+	padding:10px 0 0 0;
+	text-align: center;
+	color:#cbcbcb;
+}
+
+.step-dark-left {
+	float:left;
+	 
+	background: url(../images/forms/step_dark_left.gif) no-repeat;
+	height:27px;
+	padding:13px 15px 0 25px;
+	font-size: 13px;
+	color:#fff;
+	font-weight: bold;
+}
+
+.step-dark-left a{
+	 
+	font-size: 13px;
+	color:#fff;
+	font-weight: bold;
+}
+
+.step-dark-right {
+	float:left;
+	width:12px;
+	background: url(../images/forms/step_dark_right.gif) no-repeat;
+	height:39px;
+}
+.step-dark-round {
+	float:left;
+	width:8px;
+	height:39px;
+	background: url(../images/forms/step_dark_round.gif) no-repeat;
+}
+
+.step-light-left {
+	float:left;
+	 	height:27px;
+	padding:13px 15px 0 25px;
+	font-size: 13px;
+	background: url(../images/forms/step_light_left.gif) no-repeat;
+	height:39px;
+	color:#cbcbcb;
+	font-weight: bold;
+}
+
+.step-light-left a{
+	 
+	 
+	font-size: 13px;
+ 
+	color:#cbcbcb;
+	font-weight: bold;
+}
+.step-light-right {
+	float:left;
+	width:12px;
+	background: url(../images/forms/step_light_right.gif) no-repeat;
+	height:39px;
+}
+.step-light-round {
+	float:left;
+	width:8px;
+	height:39px;
+	background: url(../images/forms/step_light_round.gif) no-repeat;
+}
+/* FORM ------------------------------------------------------- */	
 .form-submit	{
-    background: url(../images/forms/form_submit.gif) no-repeat;
-    border: none;
-    cursor: pointer;
-    display: block;
-    float: left;
-    height: 30px;
-    margin: 0 4px 0 0;
-    padding: 0;
-    text-indent: -3000px;
-    width: 80px;
-}
+	background: url(../images/forms/form_submit.gif) no-repeat;
+	border: none;
+	cursor: pointer;
+	display: block;
+	float: left;
+	height: 30px;
+	margin: 0 4px 0 0;
+	padding: 0;
+	text-indent: -3000px;
+	width: 80px;
+	}
 .form-reset	{
-    background: url(../images/forms/form_reset.gif) no-repeat;
-    border: none;
-    cursor: pointer;
-    display: block;
-    float: left;
-    height: 30px;
-    text-indent: -3000px;
-    width: 80px;
-}
+	background: url(../images/forms/form_reset.gif) no-repeat;
+	border: none;
+	cursor: pointer;
+	display: block;
+	float: left;
+	height: 30px;
+	text-indent: -3000px;
+	width: 80px;
+	}
 #id-form	{
-}
+	}
 .inp-form	{
-    background: url(../images/forms/form_inp.gif) no-repeat;
-    border: none;
-    color: #393939;
-    height: 25px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    padding: 6px 6px 0 6px;
-    width: 378px;
-}
+	background: url(../images/forms/form_inp.gif) no-repeat;
+	border: none;
+	color: #393939;
+	height: 25px;
+ 
+	padding: 6px 6px 0 6px;
+	width: 186px;
+	}
+	
+.inp-form-error	{
+	background: url(../images/forms/form_inp_error.gif) no-repeat;
+	border: none; 
+	color: #393939;
+	height: 25px;
+	padding: 6px 6px 0 6px;
+	width: 187px;
+	}
 .form-textarea	{
-    background: url(../images/forms/form_textarea.gif) no-repeat;
-    border: none;
-    color: #393939;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    height: 97px;
-    overflow: auto;
-    padding: 6px 6px 0 6px;
-    width: 378px;
-}
+	background: url(../images/forms/form_textarea.gif) no-repeat;
+	border: none;
+	color: #393939;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	height: 97px;
+	overflow: auto;
+	padding: 6px 6px 0 6px;
+	width: 378px;
+	}
 #id-form td	{
-    padding: 0 0 10px 0;
-}
+	padding: 0 0 10px 0;
+	}
 #id-form td.noheight	{
-    padding: 0 0 0px 0;
-}
+	padding: 0 0 0px 0;
+	}
 #id-form th	{
-    line-height: 28px;
-    min-width: 130px;
-    padding: 0 0 10px 0;
-    text-align: left;
-    width: 130px;
-}
-.styledselect_form_1	{
-    background: url(../images/forms/form_select.gif) left no-repeat;
-    border: none;
-    border-left: none;
-    color: #393939;
-    cursor: pointer;
-    display: block;
-    font-family: Arial;
-    font-size: 12px;
-    height: 24px;
-    margin: 0px 0px 0px 0px;
-    padding: 7px 0 0 6px;
-    text-align: left;
-    width: 192px;
-}
+	line-height: 28px;
+	min-width: 130px;
+	padding: 0 0 10px 0;
+	text-align: left;
+	width: 130px;
+	}
 .styledselect-day ,
 .styledselect-month ,
 .styledselect-year	{
-    border: 1px solid #acacac;
-    margin-right: 3px;
-    padding: 3px;
-    width: 64px;
+	border: 1px solid #acacac;
+	margin-right: 3px;
+	padding: 3px;
+	width: 64px;
+	}
+.bubble-left {
+	float:left;
+	width:10px;
+	height:29px;
+	margin-left: 5px;
+	background: url(../images/forms/bubble_left.gif) no-repeat;
 }
+
+.bubble-inner {
+	float:left;
+	padding: 7px 0px 0 2px;
+	color:#2e74b2; 
+	line-height: 14px;
+	font-size: 11px;
+	height:22px;
+	background: url(../images/forms/bubble_inner.gif) repeat-x;
+}
+.bubble-right {
+	float:left;
+	width:8px;
+	height:29px;
+	background: url(../images/forms/bubble_right.gif) right no-repeat;
+}
+.error-left {
+	float:left;
+	width:13px;
+	height:32px;
+	margin-left: 5px;
+	background: url(../images/forms/error_left.gif) no-repeat;
+}
+
+.error-inner {
+	float:left;
+	padding: 7px 10px 0 4px;
+	color:#fff; 
+	line-height: 14px;
+	height:25px;
+	background: url(../images/forms/error_right.gif) right  no-repeat;
+}
+.file_1 {
+	border: 1px solid #acacac;
+	padding: 5px;
+}	
+ 	

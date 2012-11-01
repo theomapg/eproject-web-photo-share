@@ -112,10 +112,11 @@
         <%-- Datetime --%>
 
         <style type="text/css">
-            <!--
-            .style1 {color: #FFFFFF}
-            -->
-        </style>
+<!--
+.style1 {color: #FFFFFF}
+.style5 {color: #FFFFFF; font-weight: bold; font-size: 18px; }
+-->
+</style>
     </head>
     <body> 
         <%
@@ -314,197 +315,40 @@
                                         <td>
                                             <form name="frmEdit" action="AdminEditAccout" method="post">
                                                 <!-- start id-form -->
-                                                <fieldset>
-                                                    <legend>UserName and Password</legend>
-                                                    <p>&nbsp;</p>
-                                                    <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
-
-                                                        <tr>
-                                                            <th valign="top">UserName:</th>
-                                                            <td><input type="text" class="inp-form" value="<% out.print(aEdit.getUserName());%>" disabled="true"/></td>
-                                                            <td>
-                                                               Hien thi loi 
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th valign="top">Password:</th>
-                                                            <td><input type="password" class="inp-form" /></td>
-                                                            <td>
-                                                               Hien thi loi 
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </fieldset>
-                                                <fieldset>
-                                                    <legend>Information</legend>
-                                                    <p>&nbsp;</p>
-                                                    <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
-                                                        <tr>
-                                                            <th valign="top">FullName:</th>
-                                                            <td><input type="text" class="inp-form" /></td>
-                                                            <td>
-                                                               Hien thi loi 
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th valign="top">Address:</th>
-                                                            <td><textarea rows="" cols="" class="form-textarea"></textarea></td>
-                                                            <td>
-                                                                Hien thi loi
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th valign="top">Gender:</th>
-                                                            <td>	
-                                                                <select  class="styledselect_form_1">
-                                                                    <option value="">Male</option>
-                                                                    <option value="">Female</option>
-                                                                    <option value="">null</option>
-                                                                </select>
-                                                            </td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th valign="top">Birthday:</th>
-                                                            <td class="noheight">
-
-                                                                <table border="0" cellpadding="0" cellspacing="0">
-                                                                    <tr  valign="top">
-                                                                        <td>
-                                                                            <form id="chooseDateForm" action="#">
-
-                                                                                <select id="d" class="styledselect-day">
-                                                                                    <option value="">dd</option>
-                                                                                    <option value="1">1</option>
-                                                                                    <option value="2">2</option>
-                                                                                    <option value="3">3</option>
-                                                                                    <option value="4">4</option>
-                                                                                    <option value="5">5</option>
-                                                                                    <option value="6">6</option>
-                                                                                    <option value="7">7</option>
-                                                                                    <option value="8">8</option>
-                                                                                    <option value="9">9</option>
-                                                                                    <option value="10">10</option>
-                                                                                    <option value="11">11</option>
-                                                                                    <option value="12">12</option>
-                                                                                    <option value="13">13</option>
-                                                                                    <option value="14">14</option>
-                                                                                    <option value="15">15</option>
-                                                                                    <option value="16">16</option>
-                                                                                    <option value="17">17</option>
-                                                                                    <option value="18">18</option>
-                                                                                    <option value="19">19</option>
-                                                                                    <option value="20">20</option>
-                                                                                    <option value="21">21</option>
-                                                                                    <option value="22">22</option>
-                                                                                    <option value="23">23</option>
-                                                                                    <option value="24">24</option>
-                                                                                    <option value="25">25</option>
-                                                                                    <option value="26">26</option>
-                                                                                    <option value="27">27</option>
-                                                                                    <option value="28">28</option>
-                                                                                    <option value="29">29</option>
-                                                                                    <option value="30">30</option>
-                                                                                    <option value="31">31</option>
-                                                                                </select>
-                                                                        </td>
-                                                                        <td>
-                                                                            <select id="m" class="styledselect-month">
-                                                                                <option value="">mm</option>
-                                                                                <option value="1">Jan</option>
-                                                                                <option value="2">Feb</option>
-                                                                                <option value="3">Mar</option>
-                                                                                <option value="4">Apr</option>
-                                                                                <option value="5">May</option>
-                                                                                <option value="6">Jun</option>
-                                                                                <option value="7">Jul</option>
-                                                                                <option value="8">Aug</option>
-                                                                                <option value="9">Sep</option>
-                                                                                <option value="10">Oct</option>
-                                                                                <option value="11">Nov</option>
-                                                                                <option value="12">Dec</option>
-                                                                            </select>
-                                                                        </td>
-                                                                        <td>
-                                                                            <select  id="y"  class="styledselect-year">
-                                                                                <option value="">yyyy</option>
-                                                                                <option value="1982">1982</option>
-                                                                                <option value="1983">1983</option>
-                                                                                <option value="1984">1984</option>
-                                                                                <option value="1985">1985</option>
-                                                                                <option value="1986">1986</option>
-                                                                                <option value="1987">1987</option>
-                                                                                <option value="1988">1988</option>
-                                                                                <option value="1989">1989</option>
-                                                                                <option value="1990">1990</option>
-                                                                                <option value="1991">1991</option>
-                                                                                <option value="1992">1992</option>
-                                                                                <option value="1993">1993</option>
-                                                                                <option value="1994">1994</option>
-                                                                                <option value="1995">1995</option>
-                                                                                <option value="1996">1996</option>
-                                                                                <option value="1997">1997</option>
-                                                                                <option value="1998">1998</option>
-                                                                                <option value="1999">1999</option>
-                                                                                <option value="2000">2000</option>
-                                                                                <option value="2001">2001</option>
-                                                                                <option value="2002">2002</option>
-                                                                                <option value="2003">2003</option>
-                                                                                <option value="2004">2004</option>
-                                                                                <option value="2005">2005</option>
-                                                                                <option value="2006">2006</option>
-                                                                                <option value="2007">2007</option>
-                                                                                <option value="2008">2008</option>
-                                                                                <option value="2009">2009</option>
-                                                                                <option value="2010">2010</option>
-                                                                                <option value="2011">2011</option>
-                                                                                <option value="2012">2012</option>
-                                                                                <option value="2013">2013</option>
-                                                                                <option value="2014">2014</option>
-                                                                                <option value="2015">2015</option>
-                                                                                <option value="2016">2016</option>
-                                                                                <option value="2017">2017</option>
-                                                                            </select>
-                                                                            </form>
-                                                                        </td>
-
-                                                                    </tr>
-                                                                </table>
-
-                                                            </td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th valign="top">Email:</th>
-                                                            <td><input type="text" class="inp-form" /></td>
-                                                            <td>
-                                                               Hien thi loi 
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th valign="top">DateCreate:</th>
-                                                            <td><input type="text" class="inp-form" /></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th valign="top">Status:</th>
-                                                            <td>	
-                                                                <select  class="styledselect_form_1">
-                                                                    <option value="">False</option>
-                                                                    <option value="">True</option>
-                                                                </select>
-                                                            </td>
-                                                            <td>Hien thi loi</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>&nbsp;</th>
-                                                            <td valign="top">
-                                                                <input type="button" value="" class="form-submit" />
-                                                                <input type="reset" value="" class="form-reset"  />
-                                                            </td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </table>
-                                                </fieldset>
+                                                 <table width="100%" border="1" cellspacing="1" cellpadding="1" style="height: 300px">
+  <tr>
+    <td bgcolor="#666666"><div align="center" class="style5">Module</div></td>
+    <td bgcolor="#666666"><div align="center" class="style5">Content</div></td>
+    <td bgcolor="#666666"><div align="center" class="style5">Value</div></td>
+  </tr>
+  <tr>
+    <td rowspan="2"><div align="center"><strong>Account</strong></div></td>
+    <td><div align="left">Already Activated</div></td>
+    <td><div align="center"></div></td>
+  </tr>
+  <tr>
+    <td><div align="left">Not Activated</div></td>
+    <td><div align="center"></div></td>
+  </tr>
+  <tr>
+    <td rowspan="2"><div align="center" class="style1">Albums</div></td>
+    <td><div align="left">Old Albums</div></td>
+    <td><div align="center"></div></td>
+  </tr>
+  <tr>
+    <td><div align="left">New Albums</div></td>
+    <td><div align="center"></div></td>
+  </tr>
+  <tr>
+    <td rowspan="2"><div align="center"><strong>Feedback</strong></div></td>
+    <td><div align="left">Question Feedback</div></td>
+    <td><div align="center"></div></td>
+  </tr>
+  <tr>
+    <td><div align="left">Answer Feedback</div></td>
+    <td><div align="center"></div></td>
+  </tr>
+</table>
 
                                                 <!-- end id-form  -->
                                             </form>

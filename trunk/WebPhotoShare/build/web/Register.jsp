@@ -43,7 +43,7 @@
 								<li><a href="">FeedBack</a></li>
 								<li><a href="">FAQs</a></li>
 								<li><a href="Register.jsp">Register</a></li>
-								<li id="active" class="end"><a href="Contact.jsp">Contact</a></li>
+								<li id="active" class="end"><a href="Contact.jsp">Login</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -53,35 +53,43 @@
 				<section id="content">
 					<div class="wrapper">
 						<h2>Register Form</h2>
-						
+						<table width="100%" border="0" cellspacing="3" cellpadding="3">
+                                    <tr>
+                                        <td width="20%">&nbsp;</td>
+                                        <td align="center">
                                                 <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
 
                                                 <tr>
                                                     <th valign="top">UserName:</th>
                                                     <td><input type="text" class="inp-form" /></td>
-                                                        <td>
-                                                        <div class="error-left"></div>
-                                                         <div class="error-inner">This field is required.</div>
+                                                    <td>
+                                                        This field is required
                                                         </td>
                                                 </tr>
                                                 <tr>
                                                     <th valign="top">Password:</th>
                                                     <td><input type="password" class="inp-form" /></td>
+                                                    <td>
+                                                        This field is required
+                                                        </td>
                                                 </tr>
                                                 
                                                 <tr>
                                                     <th valign="top">FullName:</th>
                                                     <td><input type="text" class="inp-form" /></td>
+                                                    <td>
+                                                        This field is required
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                     <th valign="top">Address:</th>
                                                     <td><textarea rows="" cols="" class="form-textarea"></textarea></td>
-                                                    <td></td>
+                                                    <td> Loi o day</td>
                                                 </tr>
                                                 <tr>
                                                     <th valign="top">Gender:</th>
                                                     <td>	
-                                                        <select>
+                                                        <select class="styledselect-day">
                                                             <option value="">Male</option>
                                                             <option value="">Female</option>
                                                             <option value="">null</option>
@@ -202,6 +210,9 @@
                                                 <tr>
                                                     <th valign="top">Email:</th>
                                                     <td><input type="text" class="inp-form" /></td>
+                                                    <td>
+                                                        This field is required
+                                                        </td>
                                                 </tr>
                                                 
                                                     <th>&nbsp;</th>
@@ -212,7 +223,10 @@
                                                     <td></td>
                                                 </tr>
                                             </table>
-                                                
+                                                 </td>
+
+                                    </tr>
+                                </table>
 					</div>
 				</section>
 			</div>

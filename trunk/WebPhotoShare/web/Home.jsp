@@ -50,7 +50,7 @@
                                                             <li><a href="">Feedback</a></li>
                                                             <li><a href="">FAQs</a></li>
                                                             <li><a href="Register.jsp">Register</a></li>
-                                                            <li><a href="Contact.jsp">Contact</a></li>
+                                                            <li><a href="Contact.jsp">Login</a></li>
 							</ul>
 						</nav>
 					</div>

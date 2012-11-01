@@ -42,7 +42,7 @@
                                                             <li><a href="">Feedback</a></li>
                                                             <li><a href="">FAQs</a></li>
                                                             <li><a href="Register.jsp">Register</a></li>
-								<li id="active" class="end"><a href="Contact.html">Contact</a></li>
+								<li id="active" class="end"><a href="Contact.html">Login</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -51,23 +51,42 @@
 <!-- content -->
 				<section id="content">
 					<div class="wrapper">
-						<h2>Contact Form</h2>
-						<form id="ContactForm">
-							<div>
-								<div class="wrapper">
-									<span>Your Name:</span><input type="text" class="input" >
-								</div>
-								<div class="wrapper">
-									<span>Your E-mail:</span><input type="text" class="input" >								
-								</div>
-								<div class="textarea_box">
-									<span>Your Message:</span><textarea name="textarea" cols="1" rows="1"></textarea>								
-								</div>
-								<span>&nbsp;</span>
-								<a href="#" class="button" onClick="document.getElementById('ContactForm').reset()">Clear</a>
-								<a href="#" class="button" onClick="document.getElementById('ContactForm').submit()">Send</a>
-							</div>
-						</form>
+						<h2>Login Account</h2>
+						
+					    <table width="100%" border="0" cellspacing="3" cellpadding="3">
+                          <tr>
+                            <td width="20%">&nbsp;</td>
+                            <td align="center"><div id="loginbox">
+                              <!--  start login-inner -->
+                              <div id="login-inner">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                  <tr>
+                                    <th>Username</th>
+                                    <td><input type="text"  class="login-inp" /></td>
+                                  </tr>
+                                  <tr>
+                                    <th>Password</th>
+                                    <td><input type="password" value="************"  onfocus="this.value=''" class="login-inp" /></td>
+                                  </tr>
+                                  <tr>
+                                    <th></th>
+                                    <td valign="top"><input type="checkbox" class="checkbox-size" id="login-check" />
+                                        <label for="login-check">Remember me</label></td>
+                                  </tr>
+                                  <tr>
+                                    <th></th>
+                                    <td><input type="button" class="submit-login"  /></td>
+                                    
+                                  </tr>
+                                </table>
+                              </div>
+                              <!--  end login-inner -->
+                              <div class="clear"></div>
+                            <a href="" class="forgot-pwd">Change Information?</a> </div></td>
+                            <td width="20%">&nbsp;</td>
+                          </tr>
+                        </table>
+				      <p>&nbsp;</p>
 					</div>
 				</section>
 			</div>

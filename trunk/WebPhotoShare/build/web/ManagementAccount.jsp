@@ -319,7 +319,7 @@
 
                         <div class="nav-divider">&nbsp;</div>
 
-                        <ul class="select"><li><a href="#nogo"><b>Photos</b><!--[if IE 7]><!--></a><!--<![endif]-->
+                        <ul class="select"><li><a href="#nogo"><b>Category</b><!--[if IE 7]><!--></a><!--<![endif]-->
                                 <!--[if lte IE 6]><table><tr><td><![endif]-->
 
                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
